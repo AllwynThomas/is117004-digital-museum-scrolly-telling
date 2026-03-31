@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+:root {
+  /* ── Colors ── */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f6f8fa;
+  --color-bg-tertiary: #eaeef2;
+  --color-bg-dark: #0d1117;
+  --color-surface-rule: #d0d7de;
+  --color-text-primary: #1f2328;
+  --color-text-secondary: #656d76;
+  --color-accent-blue: #0969da;
+  --color-accent-cyan: #00e5ff;
+  --color-accent-red: #cf222e;
+  --color-accent-amber: #bf8700;
+  --color-accent-green: #1a7f37;
+  --color-text-on-dark: #f0f3f6;
+  --color-text-secondary-on-dark: #9ca3af;
+
+  /* ── Typography ── */
+  --font-family-primary: var(--font-inter), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-size-display: 48px;
+  --font-size-section: 36px;
+  --font-size-sub: 24px;
+  --font-size-body: 18px;
+  --font-size-caption: 14px;
+  --font-size-badge: 12px;
+
+  /* ── Spacing scale ── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* ── Grid ── */
+  --grid-max-width: 1200px;
+  --grid-gutter: 24px;
+  --grid-margin-mobile: 24px;
+  --grid-margin-tablet: 48px;
+}
+
+/* ── Mobile typography overrides ── */
+@media (max-width: 767px) {
+  :root {
+    --font-size-display: 32px;
+    --font-size-section: 26px;
+    --font-size-sub: 20px;
+    --font-size-body: 16px;
+    --font-size-caption: 13px;
+  }
+}
+
+@theme inline {
+  --color-background: var(--color-bg-primary);
+  --color-foreground: var(--color-text-primary);
+  --font-sans: var(--font-family-primary);
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* ── Base styles ── */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  margin: 0;
+  min-height: 100vh;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+.site-frame {
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(9, 105, 218, 0.2);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
