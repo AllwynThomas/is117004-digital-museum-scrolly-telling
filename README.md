@@ -1,6 +1,6 @@
 # is117004-digital-museum
 
-Digital museum assignment for course IS117.
+Deployed Website: https://allwynthomas.github.io/is117004-digital-museum/
 
 # Orchestration Process
 
