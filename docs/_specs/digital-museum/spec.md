@@ -39,7 +39,7 @@ That gap creates three concrete problems a digital museum can address:
 | 2 | Nuclear's safety advantage is invisible to most people | Our World in Data chart shows nuclear has the fewest deaths per TWh of any major source | Fear-based opposition persists despite the strongest comparative safety record |
 | 3 | Energy density comparison is rarely visualized | Visual Capitalist uranium pellet diagram shows one pellet ≈ 1 ton of coal | Without this framing, visitors cannot grasp why nuclear fuel efficiency matters |
 | 4 | Data center demand is reshaping energy planning | Deloitte analysis documents nuclear's fit for 24/7 AI infrastructure power | The exhibit risks feeling historical rather than forward-looking without this connection |
-| 5 | No existing single-page exhibit combines all four angles | Sources span DOE, NRC, EIA, IAEA, Our World in Data, and Deloitte but no unified museum experience exists | Visitors must assemble the story from scattered agency pages — the museum solves that |
+| 5 | No existing single-page exhibit combines all seven angles (process, benefits, safety, fuel cycle, demand, timeline, energy density) | Sources span DOE, NRC, EIA, IAEA, Our World in Data, and Deloitte but no unified museum experience exists | Visitors must assemble the story from scattered agency pages — the museum solves that |
 
 ### What The Exhibit Must Do
 
@@ -53,6 +53,19 @@ That gap creates three concrete problems a digital museum can address:
   urgent and forward-looking.
 - Present honest context on waste and accidents without dismissing them, but
   frame them as managed engineering challenges supported by data.
+
+### Acceptance Criteria
+
+Each exhibit requirement above must be verified against these measurable
+criteria before the exhibit is considered complete:
+
+| # | Requirement | Acceptance Criterion |
+|---|-------------|---------------------|
+| 1 | Teach the reactor process | The How It Works section contains a labeled 4-step process (fission → steam → turbine → generator) with a visible animation and supporting step cards. A peer reviewer unfamiliar with nuclear energy can describe the basic process after reading the section. |
+| 2 | Show comparative data | Every quantitative claim in the Benefits and Safety sections links to a source entry in SOURCES.json. No statistic appears without a visible source badge. |
+| 3 | Visualize energy density | The hero section displays the uranium pellet comparison image at a minimum rendered width of 600 px on desktop viewports, with a descriptive caption and source badge. |
+| 4 | Connect to future demand | The Future Demand section cites at least two dated projections (e.g., growth rate, year-target) from Deloitte or DOE sources. |
+| 5 | Present honest safety context | The Safety section names Chernobyl and Fukushima, states peer-reviewed death toll figures, and provides at least one direct comparison to fossil-fuel mortality per TWh. |
 
 ---
 
@@ -94,11 +107,11 @@ This style is appropriate for a nuclear energy museum because:
 | Element | Treatment |
 |---------|-----------|
 | Color palette | Crisp white and light neutral backgrounds with a strict accent system — nuclear blue for authority, reactor cyan for energy, signal red for safety context, and warm amber for data highlights |
-| Typography | Grotesque sans-serif family (e.g., Inter, Helvetica Neue, or similar neo-grotesque). Heavy weight for display headings, regular weight for body, tight tracking on headlines for Swiss density |
-| Grid | Strict multi-column grid with consistent gutters and margins — the grid is the primary organizational tool, not decoration |
+| Typography | Primary family: Inter (Google Fonts), fallback stack: `Inter, "Helvetica Neue", Helvetica, Arial, sans-serif`. Heavy weight (700–800) for display headings, regular weight (400) for body, tight tracking (−0.02 em) on headlines for Swiss density. Display type loaded via `next/font/google` to avoid layout shift. |
+| Grid | 12-column grid on desktop (1200 px+), 8-column on tablet (768–1199 px), 4-column on mobile (<768 px). Column gutter: 24 px. Outer margin: 24 px (mobile), 48 px (tablet), `max(64px, calc((100vw - 1200px) / 2))` (desktop). Maximum content width: 1200 px, centered. The grid is the primary organizational tool, not decoration. |
 | Surfaces | Clean white or light-gray panels with generous whitespace. Borders are thin, precise rules — not drop shadows or gradients |
 | Imagery | Full-bleed or precisely cropped within the grid. Images are documentary evidence, not atmosphere. Captions are always present |
-| Spacing | Generous and mathematical — consistent vertical rhythm derived from the baseline grid |
+| Spacing | Generous and mathematical — consistent vertical rhythm derived from the baseline grid. Base unit: 4 px. Scale: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 px. All component and section spacing must use values from this scale. |
 | Motion | Minimal. Content appears through clean fades or slides. No bouncing, wobbling, or particle effects |
 | Layout metaphor | The exhibit should feel like a well-designed Swiss science poster exhibition — precise, confident, information-rich, and visually quiet |
 
@@ -114,10 +127,28 @@ This style is appropriate for a nuclear energy museum because:
 | `--color-text-primary` | `#1f2328` | Near-black body text — maximum readability |
 | `--color-text-secondary` | `#656d76` | Supporting labels, captions, eyebrows |
 | `--color-accent-blue` | `#0969da` | Primary accent — links, active nav, authority signals |
-| `--color-accent-cyan` | `#00e5ff` | Reactor energy — data highlights, glow effects on dark panels |
+| `--color-accent-cyan` | `#00e5ff` | Reactor energy — data highlights, glow effects on dark panels only. **Do not use on light backgrounds** — fails WCAG AA contrast against white and light-gray surfaces. On dark panels, pair with `--color-text-on-dark` for adjacent text. |
 | `--color-accent-red` | `#cf222e` | Signal red — safety section context, not danger |
 | `--color-accent-amber` | `#bf8700` | Warm data accent — statistics, fuel cycle highlights |
 | `--color-accent-green` | `#1a7f37` | Positive data — emissions comparisons, capacity factor |
+
+**Additional tokens for dark-panel contexts:**
+
+| Token | Value | Role |
+|-------|-------|------|
+| `--color-text-on-dark` | `#f0f3f6` | Light text for use on `--color-bg-dark` panels — meets WCAG AA against `#0d1117` |
+| `--color-text-secondary-on-dark` | `#9ca3af` | Supporting text (captions, eyebrows) on dark panels |
+
+**Type scale (desktop → mobile):**
+
+| Role | Desktop | Mobile | Weight | Token |
+|------|---------|--------|--------|-------|
+| Display heading (h1) | 48 px / 1.1 | 32 px / 1.15 | 800 | `--font-size-display` |
+| Section heading (h2) | 36 px / 1.2 | 26 px / 1.25 | 700 | `--font-size-section` |
+| Sub-heading (h3) | 24 px / 1.3 | 20 px / 1.3 | 700 | `--font-size-sub` |
+| Body | 18 px / 1.6 | 16 px / 1.6 | 400 | `--font-size-body` |
+| Caption / eyebrow | 14 px / 1.4 | 13 px / 1.4 | 400 | `--font-size-caption` |
+| Source badge | 12 px / 1.3 | 12 px / 1.3 | 400 | `--font-size-badge` |
 
 **How Swiss International Style differs from the reference site's
 museum-editorial style:**
@@ -337,19 +368,48 @@ speaks wisely but uses manipulative urgency, the visitor's trust breaks.
 
 8. **Maintain Swiss style consistency.** Every section must use the
    defined color tokens, grid, typography, and surface treatments. No
-   section should feel like it belongs to a different site.
+   section should feel like it belongs to a different site. **Test:** A
+   visual audit confirms every color value traces to a declared token, every
+   spacing value to the 4 px scale, and every font to the Inter family.
 
 9. **Maintain Sage voice consistency.** Every piece of exhibit copy must be
    calm, evidence-first, and respectful. No promotional or fear-based
-   language.
+   language. **Test:** A copy review flags any instance of superlatives
+   without data ("best," "amazing"), fear language ("disaster," "doomed"),
+   or dismissive phrasing ("people who think X are wrong").
 
 10. **Ensure accessibility.** All images must have descriptive alt text. Color
-    contrast must meet WCAG AA. Navigation must work with keyboard only. The
-    exhibit must be usable on mobile viewports.
+    contrast must meet WCAG AA (minimum 4.5:1 for normal text, 3:1 for large
+    text). Navigation must work with keyboard only (Tab, Enter, Escape).
+    Focus indicators must be visible on all interactive elements. The exhibit
+    must be usable on mobile viewports down to 320 px width.
+
+11. **Meet performance targets.** The fully loaded page must achieve a
+    Lighthouse Performance score ≥ 90 on mobile emulation. Largest
+    Contentful Paint (LCP) ≤ 2.5 s, Cumulative Layout Shift (CLS) ≤ 0.1,
+    First Contentful Paint (FCP) ≤ 1.8 s.
 
 ---
 
 ## Architecture
+
+### Technology Stack
+
+The exhibit is built as a Next.js static site using the same toolchain as the
+reference repository.
+
+| Concern | Choice | Notes |
+|---------|--------|-------|
+| Framework | Next.js 15 (App Router) | Static export via `output: 'export'` in `next.config.ts` |
+| Language | TypeScript (strict mode) | All source files use `.ts` / `.tsx` |
+| Styling | CSS Modules + CSS custom properties | Global tokens in `globals.css`, component styles co-located |
+| UI primitives | shadcn/ui (New York style) | For accordion, tooltip, dialog if needed; not required for custom exhibit components |
+| Font loading | `next/font/google` (Inter) | Eliminates FOUT and external font requests |
+| Package manager | npm | Matches reference repository |
+| Node version | ≥ 18.17 | Minimum for Next.js 15 |
+| Linting | ESLint (config from reference) | |
+| Testing | Vitest (unit) + Playwright (browser) | Configs from reference |
+| Image optimization | `next/image` for static assets | All images in `public/assets/images/` |
 
 ### Governing Metaphor
 
@@ -392,6 +452,12 @@ This is the main route — the designed visitor journey:
 | 5 | `fuel-cycle` | From Uranium to Electricity | Full lifecycle understanding | `eia_nuclear_fuel_cycle`, `iaea_science_of_nuclear_power` |
 | 6 | `future-demand` | Powering AI and the Future Grid | Urgency: data center demand, SMRs | `deloitte_data_center_nuclear`, `doe_smr_overview` |
 | 7 | `timeline` | The Rise of Nuclear Power | Scale: global adoption history | `iaea_nuclear_power_topic`, `world_nuclear_world_energy_needs` |
+
+> **Section ID mapping note:** SOURCES.json uses underscores in its
+> `recommended_exhibit_sections` keys (e.g., `how_it_works`, `fuel_cycle`).
+> The spec’s section IDs use hyphens (e.g., `how-it-works`, `fuel-cycle`)
+> because they double as URL anchor fragments. The content data layer must
+> map between the two conventions when linking sections to sources.
 
 ### Section Architecture
 
@@ -440,7 +506,10 @@ variation comes from content — what's taught — not from layout invention.
 - **Body copy:** Core thesis in Sage voice — what the exhibit will teach and
   why it matters. Brief global scale statistics (Cialdini: social proof):
   440+ reactors, 32 countries, ~10% of global electricity.
-- **Source badge:** Visual Capitalist attribution
+- **Source badge:** Visual Capitalist attribution on the pellet diagram.
+  The safety/emissions chart (`safest_cleanest_sources_of_energy_chart.png`)
+  is reserved for the Benefits section and must not appear in the hero to
+  avoid diluting the single-image impact.
 - **Transition:** "To understand why that pellet is so powerful, you need to
   see what happens inside a reactor."
 
@@ -558,8 +627,16 @@ variation comes from content — what's taught — not from layout invention.
 - **Sticky header** with site title and anchor links to each section.
 - **Section navigation** uses anchor links (`#hero`, `#how-it-works`,
   `#benefits`, `#safety`, `#fuel-cycle`, `#future-demand`, `#timeline`).
-- **Active section highlighting** based on scroll position.
-- **Mobile:** Hamburger menu or horizontal scroll nav for section links.
+- **Active section highlighting** based on scroll position using the
+  Intersection Observer API. The nav link for the section whose heading is
+  nearest the top of the viewport receives the active style
+  (`--color-accent-blue` underline or background).
+- **Mobile:** Hamburger menu that expands to a full-width overlay listing
+  all seven section links. The overlay closes on link tap or an explicit
+  close button. No horizontal-scroll nav — seven items do not fit reliably
+  on small viewports.
+- **Skip link:** A visually hidden "Skip to main content" link is the first
+  focusable element, jumping to `#hero`.
 
 ### Reusable Component Architecture
 
@@ -583,15 +660,23 @@ The following component families must be defined early and reused consistently:
   as CSS custom properties in `:root`.
 - **Spacing system:** Consistent scale (e.g., 4px base or phi-based) applied
   through tokens, not ad-hoc values.
-- **Section theming:** Each section may carry a subtle accent variation
-  (e.g., reactor cyan for How It Works, amber for Safety, green for Benefits)
-  while staying within the Swiss palette.
+- **Section theming:** Each section carries a subtle accent variation.
+  The mapping is fixed, not arbitrary: reactor cyan (`--color-accent-cyan`)
+  for How It Works (on dark panel), green (`--color-accent-green`) for
+  Benefits, red (`--color-accent-red`) for Safety, amber
+  (`--color-accent-amber`) for Fuel Cycle, blue (`--color-accent-blue`) for
+  Future Demand. Hero and Timeline use the dark-panel palette
+  (`--color-bg-dark` + `--color-accent-cyan`).
 - **Light-first design:** Primary background is white (`--color-bg-primary`).
   Dark text for maximum readability. Dark panels used selectively for contrast
   sections (hero, timeline). Accent colors provide hierarchy and data coding.
-- **Responsive breakpoints:** Desktop (1200px+), tablet (768px–1199px),
-  mobile (<768px). Single-column collapse on mobile.
+- **Responsive breakpoints:** Desktop (1200 px+), tablet (768–1199 px),
+  mobile (<768 px). Single-column collapse on mobile. Minimum supported
+  viewport width: 320 px.
 - **Reduced motion:** All animations respect `prefers-reduced-motion`.
+- **Border radius:** 0 on all containers and cards (Swiss style). Buttons
+  may use 2 px radius for touch-target clarity.
+- **Max content width:** 1200 px, centered with auto margins.
 
 ### Image and Media Policy
 
@@ -602,12 +687,37 @@ The following component families must be defined early and reused consistently:
   caption.
 - The animated GIF (`nuclearplant.gif`) should be presented at a size where
   the reactor schematic is legible on both desktop and mobile.
+- **GIF and reduced motion:** When `prefers-reduced-motion: reduce` is
+  active, the GIF must be replaced with a static fallback frame (e.g., a
+  poster image or the first frame extracted during the build). Do not
+  auto-play animation for users who have requested reduced motion.
+- **Fallback for missing section visuals:** Sections 4 (Safety), 5 (Fuel
+  Cycle), and 6 (Future Demand) do not have dedicated image assets in
+  `public/assets/images/`. These sections rely on text-based layouts
+  (cards, process steps, stat cards) as their primary content. If images
+  are added later, they must follow the same alt-text and source-badge
+  policy as the existing three assets.
+
+### Metadata Requirements
+
+The `<head>` of the page must include:
+
+| Tag | Value |
+|-----|-------|
+| `<title>` | "Nuclear Energy: A Digital Museum Exhibit" |
+| `<meta name="description">` | A 150–160 character summary of the exhibit’s purpose (Sage voice) |
+| `<meta name="viewport">` | `width=device-width, initial-scale=1` |
+| `<meta charset>` | `utf-8` |
+| Open Graph `og:title`, `og:description`, `og:image` | Title, description, and the uranium pellet diagram as the share image |
+| `<link rel="icon">` | A favicon representing the exhibit (to be created in Sprint 0) |
+| `<html lang="en">` | Language declaration for screen readers |
 
 ### Content Data Model
 
-Exhibit content should be centralized in a data structure (TypeScript file or
-JSON) rather than scattered across component markup. This keeps copy editable
-without touching layout code.
+Exhibit content must be centralized in a TypeScript data file (not JSON,
+to allow type safety and inline documentation) rather than scattered across
+component markup. This keeps copy editable without touching layout code.
+The data file should be located at `lib/exhibit-data.ts`.
 
 Minimum data entities:
 
@@ -628,28 +738,98 @@ Minimum data entities:
 - No environment variables or secrets required.
 - Source URLs in the footer link to public government and data websites only.
 - No client-side analytics or tracking scripts unless explicitly added later.
+- **External links:** All `<a>` elements linking to external domains must
+  include `rel="noopener noreferrer"` and `target="_blank"`. This prevents
+  reverse tabnapping and referrer leakage.
+- **Content Security Policy (CSP):** The static export should include a
+  `<meta>` CSP tag (or HTTP header if the hosting platform supports it) with
+  at minimum: `default-src 'self'; img-src 'self'; style-src 'self'
+  'unsafe-inline'; font-src 'self'; script-src 'self'`. Adjust if
+  third-party scripts (analytics, fonts) are added later.
+- **Subresource Integrity (SRI):** If any external scripts or stylesheets are
+  added in the future, they must include `integrity` and `crossorigin`
+  attributes.
+- **No inline event handlers:** All interactivity must be attached via
+  React event props or `addEventListener`, never via inline `onclick` or
+  similar HTML attributes.
 
 ---
 
 ## Testing Strategy
 
-1. **Build verification:** The site must build to static output without errors.
-2. **Lint and format:** Code passes lint and format checks.
-3. **Accessibility audit:** All images have `alt` text. Color contrast passes
-   WCAG AA. Keyboard navigation works for all interactive elements.
-4. **Image integrity:** Every image reference in the page resolves to a file
-   in `public/assets/images/`.
-5. **No external image URLs:** No `http` image sources in page markup.
-6. **Responsive check:** Layout renders correctly at 1440px, 768px, and 390px
-   viewports.
-7. **Content accuracy:** All statistics cited in the exhibit are traceable to
-   a source in SOURCES.json.
-8. **Voice consistency:** All exhibit copy matches the Sage voice guidelines —
-   no promotional, fear-based, or dismissive language.
+Each test item defines a pass/fail criterion and the tool or method used to
+verify it. All tests must pass before a sprint is considered complete.
+
+### Build and Code Quality
+
+| # | Test | Pass Criterion | Tool / Method |
+|---|------|---------------|---------------|
+| 1 | Build verification | `npm run build` completes with exit code 0 and produces static output in `out/` | CI or local terminal |
+| 2 | Lint | `npm run lint` reports zero errors (warnings acceptable during development) | ESLint |
+| 3 | Type check | `npx tsc --noEmit` reports zero errors | TypeScript compiler |
+| 4 | Format | Code matches the project formatter configuration with no unformatted files | Prettier or equivalent |
+
+### Accessibility
+
+| # | Test | Pass Criterion | Tool / Method |
+|---|------|---------------|---------------|
+| 5 | Alt text | Every `<img>` element has a non-empty, descriptive `alt` attribute. Decorative images use `alt=""` with `role="presentation"` | Axe-core (via Playwright) + manual review |
+| 6 | Color contrast | All text-background combinations meet WCAG 2.1 AA: ≥ 4.5:1 for normal text, ≥ 3:1 for large text (≥ 18 px bold or ≥ 24 px regular) | Lighthouse accessibility audit score ≥ 95 |
+| 7 | Keyboard navigation | Every interactive element (nav links, hamburger menu, anchor links) is reachable via Tab, activatable via Enter, and dismissible via Escape where applicable. Focus order follows visual reading order. Focus indicators are visible. | Manual keyboard walkthrough |
+| 8 | Screen reader landmarks | Page includes `<main>`, `<nav>`, `<header>`, `<footer>` landmarks. Each section uses `<section>` with an `aria-labelledby` pointing to its heading. | Axe-core |
+| 9 | Reduced motion | With `prefers-reduced-motion: reduce` active, the reactor GIF is replaced with a static image and no CSS animations play | Manual browser emulation |
+
+### Content Integrity
+
+| # | Test | Pass Criterion | Tool / Method |
+|---|------|---------------|---------------|
+| 10 | Image integrity | Every `src` attribute referencing an image resolves to a file in `public/assets/images/`. No broken image icons render. | Playwright test: query all `img[src]`, verify HTTP 200 |
+| 11 | No external image URLs | No `<img>` element has an `src` starting with `http://` or `https://` | Grep search or Playwright assertion |
+| 12 | Source traceability | Every statistic and data claim displayed in the exhibit maps to an entry in `SOURCES.json` by source ID. Every source badge shows a valid source name. | Manual audit against `lib/exhibit-data.ts` |
+| 13 | External link integrity | Every external `<a href>` in the footer returns HTTP 200 (or 301 redirect). All include `rel="noopener noreferrer"` and `target="_blank"`. | Playwright test or link-checker script |
+| 14 | HTML validation | The output HTML passes the W3C Nu HTML Checker with zero errors | `vnu-jar` or online validator on `out/index.html` |
+
+### Responsive and Visual
+
+| # | Test | Pass Criterion | Tool / Method |
+|---|------|---------------|---------------|
+| 15 | Desktop layout | At 1440 px viewport width, all sections render the multi-column grid with no horizontal overflow | Playwright screenshot at 1440 × 900 |
+| 16 | Tablet layout | At 768 px viewport width, layout collapses to the tablet grid. No horizontal overflow. Nav remains usable. | Playwright screenshot at 768 × 1024 |
+| 17 | Mobile layout | At 390 px viewport width, layout is single-column. Hamburger menu opens and closes. All content is reachable. | Playwright screenshot at 390 × 844 |
+| 18 | Minimum viewport | At 320 px viewport width, no content is clipped or horizontally scrollable | Playwright screenshot at 320 × 568 |
+
+### Performance
+
+| # | Test | Pass Criterion | Tool / Method |
+|---|------|---------------|---------------|
+| 19 | Lighthouse Performance | Score ≥ 90 on mobile emulation | Lighthouse CI (`lighthouserc.json`) |
+| 20 | Largest Contentful Paint | LCP ≤ 2.5 s | Lighthouse |
+| 21 | Cumulative Layout Shift | CLS ≤ 0.1 | Lighthouse |
+| 22 | First Contentful Paint | FCP ≤ 1.8 s | Lighthouse |
+| 23 | Image optimization | All PNG images are optimized (lossless compression applied). The GIF is ≤ 2 MB. Total image payload ≤ 5 MB. | Build script + file-size check |
+
+### Voice and Copy
+
+| # | Test | Pass Criterion | Tool / Method |
+|---|------|---------------|---------------|
+| 24 | Sage voice consistency | No instance of unsourced superlatives, fear language, or dismissive phrasing in any visible exhibit text | Manual copy review using the Sage voice checklist from Design Foundations |
+| 25 | Spelling and grammar | Zero spelling or grammar errors in exhibit copy | Manual review or automated spell-check |
 
 ---
 
 ## Sprint Plan
+
+### Definition of Done (applies to every sprint)
+
+A sprint is complete when all of the following are true:
+
+1. All sprint deliverables are implemented and visible in the running site.
+2. `npm run build` completes with exit code 0.
+3. `npm run lint` reports zero errors.
+4. `npx tsc --noEmit` reports zero type errors.
+5. Any new or modified images have alt text and source badges.
+6. Responsive layout verified at 1440 px, 768 px, and 390 px.
+7. Changes committed to version control with a descriptive message.
 
 ### Sprint 0 — Foundation Shell and Design Tokens
 
@@ -660,12 +840,21 @@ all later sprints build on.
 
 **Deliverables:**
 
-- Base layout with HTML structure, meta tags, and skip-to-content link
-- Global CSS with all Swiss International Style design tokens
+- Next.js project initialized with App Router, TypeScript, and static export
+  configuration (`output: 'export'` in `next.config.ts`)
+- Inter font loaded via `next/font/google` in the root layout
+- `lib/exhibit-data.ts` stub created with typed interfaces for sections,
+  timeline entries, process steps, stat cards, and sources
+- Base layout with HTML structure, `<html lang="en">`, meta tags (title,
+  description, viewport, charset, Open Graph), and skip-to-content link
+- Global CSS (`globals.css`) with all Swiss International Style design tokens
+  (colors, type scale, spacing scale, grid) as CSS custom properties
 - Sticky site header with section nav links (anchors to future sections)
+- Hamburger menu for mobile nav (functional open/close, links to anchors)
 - Site footer skeleton with source list structure
-- Responsive breakpoints and reduced-motion media query
-- Build verification passes
+- Responsive breakpoints and `prefers-reduced-motion` media query
+- Favicon created or placeholder added
+- Build verification passes (Definition of Done items 1–4)
 
 ### Sprint 1 — Hero and How It Works Sections
 
@@ -678,7 +867,10 @@ ExhibitImage, StepCard) works before the remaining sections are built.
 
 - Hero section with uranium pellet diagram, hook question, global stats
 - How It Works section with reactor animation GIF and 4 step cards
+- Static fallback image for the reactor GIF when `prefers-reduced-motion`
+  is active
 - SectionHeader, ExhibitImage, and StepCard components operational
+- `lib/exhibit-data.ts` populated with hero and how-it-works section data
 - Source badges on both sections
 - Responsive layout verified at 3 viewports
 
@@ -730,12 +922,52 @@ touches no new content — it verifies and polishes what exists.
 
 **Deliverables:**
 
-- All testing strategy items verified
-- Accessibility audit complete (alt text, contrast, keyboard nav)
-- Responsive layout confirmed at 1440px, 768px, 390px
-- Copy reviewed for Sage voice consistency across all sections
-- Build, lint, and format checks pass
-- Performance acceptable (no layout shifts, images optimized)
+- All 25 Testing Strategy items verified and passing
+- Accessibility audit complete: Lighthouse accessibility score ≥ 95, all
+  images have alt text, color contrast passes WCAG AA, keyboard navigation
+  works, screen reader landmarks present
+- Responsive layout confirmed at 1440 px, 768 px, 390 px, and 320 px
+- Copy reviewed for Sage voice consistency across all sections (zero
+  flagged violations)
+- Lighthouse Performance score ≥ 90; LCP ≤ 2.5 s; CLS ≤ 0.1
+- Build, lint, type-check, and format checks pass
+- All external links in footer return HTTP 200 or valid redirect
+- `rel="noopener noreferrer"` on all external links confirmed
+- Images optimized (total payload ≤ 5 MB)
+
+---
+
+## Browser and Environment Support
+
+| Environment | Minimum Version | Notes |
+|-------------|----------------|-------|
+| Chrome / Edge | Last 2 major versions | Primary development target |
+| Firefox | Last 2 major versions | |
+| Safari | 16.4+ | Required for modern CSS features (`container queries` if used) |
+| iOS Safari | 16.4+ | Primary mobile browser; test with 390 px viewport |
+| Samsung Internet | Last 2 major versions | Significant Android market share |
+| Screen readers | VoiceOver (macOS/iOS), NVDA (Windows) | Tested during Sprint 5 |
+| JavaScript disabled | Graceful degradation | Static content must be visible. Navigation anchor links must still work. Intersection Observer features (active nav) degrade silently. |
+
+### Animated GIF Browser Behavior
+
+The `nuclearplant.gif` auto-plays in all listed browsers. The
+`prefers-reduced-motion` fallback (static image swap) handles the
+accessibility case. No browser-specific GIF workarounds are needed.
+
+---
+
+## Deployment
+
+- **Target:** Static hosting (e.g., GitHub Pages, Vercel, Netlify, or
+  university-provided hosting).
+- **Build output:** `next build` produces a fully static `out/` directory.
+  No server-side rendering or API routes.
+- **Base path:** If hosted in a subdirectory (e.g.,
+  `/is117004-digital-museum/`), set `basePath` in `next.config.ts`.
+- **Cache headers:** Images and fonts should be served with long cache
+  lifetimes (`Cache-Control: public, max-age=31536000, immutable`) if the
+  hosting platform supports header configuration.
 
 ---
 
