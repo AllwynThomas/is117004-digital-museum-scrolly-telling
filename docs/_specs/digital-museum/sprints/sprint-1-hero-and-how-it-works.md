@@ -21,16 +21,16 @@
 
 ## Available Assets
 
-| Asset | Verified details | How this sprint uses it |
-|-------|-----------------|------------------------|
-| `public/assets/images/uranium_vs_fossil_fuels_diagram.png` | Visual Capitalist diagram comparing uranium pellet energy density to fossil fuels | Hero section primary visual — full-width, high-impact placement |
-| `public/assets/images/nuclearplant.gif` | NEI animated GIF showing PWR reactor cycle (fission → steam → turbine → generator) | How It Works section primary visual — animated reactor process |
-| `app/page.tsx` | Contains 7 placeholder `<section>` elements with correct anchor IDs (`#hero`, `#how-it-works`, etc.) | Replace the first two placeholder sections with full exhibit content |
-| `app/globals.css` | All Swiss Style design tokens defined as CSS custom properties | All component styles reference these tokens — no hardcoded values |
-| `lib/exhibit-data.ts` | Typed interfaces for `ExhibitSection`, `ProcessStep`, `StatCard`, `Source` and stub `exhibitData` | Populate with hero and how-it-works section data, process steps, stat cards, and source entries |
-| `docs/_research/SOURCES.json` | Source entries with IDs: `uranium_vs_fossil_fuels_diagram`, `nuclearplant_animation`, `nrc_pwr_overview`, `doe_nuclear_101`, `iaea_science_of_nuclear_power` | Data source for source badge attributions and exhibit-data source entries |
-| `components/site/site-header.tsx` | Sticky header with anchor links to all 7 sections | Already links to `#hero` and `#how-it-works`; no changes needed |
-| `lib/utils.ts` | `cn()` utility for conditional classnames | Used by all new components |
+| Asset                                                      | Verified details                                                                                                                                             | How this sprint uses it                                                                         |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| `public/assets/images/uranium_vs_fossil_fuels_diagram.png` | Visual Capitalist diagram comparing uranium pellet energy density to fossil fuels                                                                            | Hero section primary visual — full-width, high-impact placement                                 |
+| `public/assets/images/nuclearplant.gif`                    | NEI animated GIF showing PWR reactor cycle (fission → steam → turbine → generator)                                                                           | How It Works section primary visual — animated reactor process                                  |
+| `app/page.tsx`                                             | Contains 7 placeholder `<section>` elements with correct anchor IDs (`#hero`, `#how-it-works`, etc.)                                                         | Replace the first two placeholder sections with full exhibit content                            |
+| `app/globals.css`                                          | All Swiss Style design tokens defined as CSS custom properties                                                                                               | All component styles reference these tokens — no hardcoded values                               |
+| `lib/exhibit-data.ts`                                      | Typed interfaces for `ExhibitSection`, `ProcessStep`, `StatCard`, `Source` and stub `exhibitData`                                                            | Populate with hero and how-it-works section data, process steps, stat cards, and source entries |
+| `docs/_research/SOURCES.json`                              | Source entries with IDs: `uranium_vs_fossil_fuels_diagram`, `nuclearplant_animation`, `nrc_pwr_overview`, `doe_nuclear_101`, `iaea_science_of_nuclear_power` | Data source for source badge attributions and exhibit-data source entries                       |
+| `components/site/site-header.tsx`                          | Sticky header with anchor links to all 7 sections                                                                                                            | Already links to `#hero` and `#how-it-works`; no changes needed                                 |
+| `lib/utils.ts`                                             | `cn()` utility for conditional classnames                                                                                                                    | Used by all new components                                                                      |
 
 ## Tasks
 
@@ -165,6 +165,7 @@ with real content from the spec.
 Required data:
 
 **Hero section data:**
+
 - `id: "hero"`, `title: "The Power of Nuclear Energy"`,
   `eyebrow: "Exhibit Opening"`
 - Lede: the hook question — "What if one fuel pellet could replace a ton
@@ -177,11 +178,13 @@ Required data:
   to see what happens inside a reactor."
 
 **Hero stat cards (3):**
+
 - "440+" / "Operating Reactors" / "Worldwide"
 - "32" / "Countries" / "With nuclear power programs"
 - "~10%" / "Global Electricity" / "From nuclear sources"
 
 **How It Works section data:**
+
 - `id: "how-it-works"`, `title: "How a Reactor Makes Electricity"`,
   `eyebrow: "Inside the Reactor"`
 - Lede: plain-language summary of the PWR process.
@@ -191,6 +194,7 @@ Required data:
   it compares with every other source."
 
 **Process steps (4):**
+
 1. "Fission → Heat" / "Uranium atoms split inside the reactor core,
    releasing tremendous thermal energy."
 2. "Steam Generation" / "The heat boils water into high-pressure steam in
@@ -201,6 +205,7 @@ Required data:
    system and returns to the steam generator to repeat the cycle."
 
 **Source entries** (populate the `sources` array):
+
 - All primary and supporting sources referenced by these two sections,
   pulled from SOURCES.json data.
 

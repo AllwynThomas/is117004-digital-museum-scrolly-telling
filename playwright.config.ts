@@ -28,7 +28,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npm run dev -- --hostname ${host} --port ${port}`,
+    command: `npx serve out -l ${port} --no-clipboard`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

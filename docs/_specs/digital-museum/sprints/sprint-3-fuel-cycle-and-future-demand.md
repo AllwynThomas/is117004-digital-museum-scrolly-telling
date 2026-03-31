@@ -20,15 +20,15 @@
 
 ## Available Assets
 
-| Asset | Verified details | How this sprint uses it |
-|-------|-----------------|------------------------|
-| `components/ui/section-header.tsx` | Renders eyebrow + title + lede with light/dark variants | Reused for both section headers |
-| `components/ui/step-card.tsx` | Renders numbered process steps in responsive grid — proven in How It Works | Reused for the 5-step fuel cycle process |
-| `components/ui/stat-card.tsx` | Renders statistics with value, label, context — proven in Hero and Benefits | Reused for Future Demand stat cards |
-| `components/ui/source-badge.tsx` | Renders source attributions | Reused on all data displays |
-| `lib/exhibit-data.ts` | Contains hero, how-it-works, benefits, and safety section data | Extend with fuel-cycle and future-demand data |
-| `docs/_research/SOURCES.json` | Source entries: `eia_nuclear_fuel_cycle`, `iaea_science_of_nuclear_power`, `eia_nuclear_explained`, `deloitte_data_center_nuclear`, `doe_smr_overview` | Data source for attributions in these sections |
-| `app/page.tsx` | Contains placeholder sections for `#fuel-cycle` and `#future-demand` | Replace placeholders with full exhibit content |
+| Asset                              | Verified details                                                                                                                                       | How this sprint uses it                        |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| `components/ui/section-header.tsx` | Renders eyebrow + title + lede with light/dark variants                                                                                                | Reused for both section headers                |
+| `components/ui/step-card.tsx`      | Renders numbered process steps in responsive grid — proven in How It Works                                                                             | Reused for the 5-step fuel cycle process       |
+| `components/ui/stat-card.tsx`      | Renders statistics with value, label, context — proven in Hero and Benefits                                                                            | Reused for Future Demand stat cards            |
+| `components/ui/source-badge.tsx`   | Renders source attributions                                                                                                                            | Reused on all data displays                    |
+| `lib/exhibit-data.ts`              | Contains hero, how-it-works, benefits, and safety section data                                                                                         | Extend with fuel-cycle and future-demand data  |
+| `docs/_research/SOURCES.json`      | Source entries: `eia_nuclear_fuel_cycle`, `iaea_science_of_nuclear_power`, `eia_nuclear_explained`, `deloitte_data_center_nuclear`, `doe_smr_overview` | Data source for attributions in these sections |
+| `app/page.tsx`                     | Contains placeholder sections for `#fuel-cycle` and `#future-demand`                                                                                   | Replace placeholders with full exhibit content |
 
 ## Tasks
 
@@ -37,6 +37,7 @@
 Update `lib/exhibit-data.ts` with real content for both sections.
 
 **Fuel Cycle section data:**
+
 - `id: "fuel-cycle"`, `title: "From Uranium to Electricity"`,
   `eyebrow: "The Full Journey"`
 - Lede: Sage-voice introduction to the nuclear fuel lifecycle.
@@ -48,6 +49,7 @@ Update `lib/exhibit-data.ts` with real content for both sections.
   nuclear energy headed next?"
 
 **Fuel Cycle process steps (5):**
+
 1. "Mining & Milling" / "Uranium ore is extracted from the earth and
    processed into uranium oxide concentrate, known as yellowcake."
 2. "Conversion & Enrichment" / "Yellowcake is converted to uranium
@@ -65,6 +67,7 @@ Update `lib/exhibit-data.ts` with real content for both sections.
    containment."
 
 **Future Demand section data:**
+
 - `id: "future-demand"`, `title: "Powering AI and the Future Grid"`,
   `eyebrow: "Looking Ahead"`
 - Lede: Sage-voice framing of nuclear as an answer to escalating
@@ -78,6 +81,7 @@ Update `lib/exhibit-data.ts` with real content for both sections.
   decades. Here is how it became a global energy source."
 
 **Future Demand stat cards (3):**
+
 1. "~30%" / "Annual Growth" / "Data center power demand is increasing
    at roughly 30% per year" / Source: Deloitte
 2. "24/7" / "Carbon-Free Power" / "Data centers require round-the-clock,

@@ -8,18 +8,18 @@
   --color-bg-dark: #0d1117;
   --color-surface-rule: #d0d7de;
   --color-text-primary: #1f2328;
-  --color-text-secondary: #656d76;
+  --color-text-secondary: #596069;
   --color-accent-blue: #0969da;
   --color-accent-cyan: #00e5ff;
   --color-accent-red: #cf222e;
-  --color-accent-amber: #bf8700;
+  --color-accent-amber: #956600;
   --color-accent-green: #1a7f37;
   --color-text-on-dark: #f0f3f6;
   --color-text-secondary-on-dark: #9ca3af;
 
   /* ── Typography ── */
-  --font-family-primary: var(--font-inter), "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+  --font-family-primary:
+    var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-size-display: 48px;
   --font-size-section: 36px;
   --font-size-sub: 24px;

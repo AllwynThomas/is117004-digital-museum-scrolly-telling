@@ -21,7 +21,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     const sectionElements = NAV_SECTIONS.map(({ id }) =>
-      document.getElementById(id)
+      document.getElementById(id),
     ).filter(Boolean) as HTMLElement[];
 
     if (sectionElements.length === 0) return;
@@ -39,7 +39,7 @@ export function SiteHeader() {
       {
         rootMargin: "-80px 0px -60% 0px",
         threshold: 0,
-      }
+      },
     );
 
     sectionElements.forEach((el) => observer.observe(el));
@@ -73,7 +73,7 @@ export function SiteHeader() {
     <header
       className={cn(
         "sticky top-0 z-40",
-        "bg-[var(--color-bg-primary)] border-b border-[var(--color-surface-rule)]"
+        "bg-[var(--color-bg-primary)] border-b border-[var(--color-surface-rule)]",
       )}
     >
       <div
@@ -101,7 +101,7 @@ export function SiteHeader() {
                 "no-underline rounded px-3 py-1.5 transition-colors",
                 "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
                 activeSection === id &&
-                  "text-[var(--color-accent-blue)] font-semibold"
+                  "text-[var(--color-accent-blue)] font-semibold",
               )}
               style={{ fontSize: "var(--font-size-caption)" }}
             >
@@ -117,12 +117,14 @@ export function SiteHeader() {
             "md:hidden flex items-center justify-center",
             "w-10 h-10 rounded",
             "text-[var(--color-text-primary)]",
-            "bg-transparent border-none cursor-pointer"
+            "bg-transparent border-none cursor-pointer",
           )}
           onClick={toggleMobileMenu}
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-nav-menu"
-          aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={
+            isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
         >
           {isMobileMenuOpen ? (
             <X size={24} aria-hidden="true" />
@@ -133,40 +135,39 @@ export function SiteHeader() {
       </div>
 
       {/* Mobile navigation overlay */}
-      {isMobileMenuOpen && (
-        <nav
-          id="mobile-nav-menu"
-          aria-label="Exhibit sections"
-          className={cn(
-            "md:hidden",
-            "bg-[var(--color-bg-primary)] border-t border-[var(--color-surface-rule)]"
-          )}
-        >
-          <ul className="list-none m-0 p-0">
-            {NAV_SECTIONS.map(({ id, label }) => (
-              <li key={id}>
-                <Link
-                  href={`#${id}`}
-                  onClick={closeMobileMenu}
-                  className={cn(
-                    "block no-underline",
-                    "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
-                    "border-b border-[var(--color-surface-rule)]",
-                    activeSection === id &&
-                      "text-[var(--color-accent-blue)] font-semibold"
-                  )}
-                  style={{
-                    padding: "var(--space-4) var(--space-6)",
-                    fontSize: "var(--font-size-body)",
-                  }}
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+      <nav
+        id="mobile-nav-menu"
+        aria-label="Exhibit sections"
+        className={cn(
+          "md:hidden",
+          "bg-[var(--color-bg-primary)] border-t border-[var(--color-surface-rule)]",
+          !isMobileMenuOpen && "hidden",
+        )}
+      >
+        <ul className="list-none m-0 p-0">
+          {NAV_SECTIONS.map(({ id, label }) => (
+            <li key={id}>
+              <Link
+                href={`#${id}`}
+                onClick={closeMobileMenu}
+                className={cn(
+                  "block no-underline",
+                  "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
+                  "border-b border-[var(--color-surface-rule)]",
+                  activeSection === id &&
+                    "text-[var(--color-accent-blue)] font-semibold",
+                )}
+                style={{
+                  padding: "var(--space-4) var(--space-6)",
+                  fontSize: "var(--font-size-body)",
+                }}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 }

@@ -63,7 +63,10 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[var(--grid-max-width)]">
         <h2
           className="font-bold text-[var(--color-text-on-dark)]"
-          style={{ fontSize: "var(--font-size-section)", marginBottom: "var(--space-4)" }}
+          style={{
+            fontSize: "var(--font-size-section)",
+            marginBottom: "var(--space-4)",
+          }}
         >
           Sources and Attribution
         </h2>
@@ -114,9 +117,7 @@ export function SiteFooter() {
         </div>
 
         {/* Visual asset credits */}
-        <div
-          className="border-t border-[var(--color-surface-rule)] mt-[var(--space-12)] pt-[var(--space-8)]"
-        >
+        <div className="border-t border-[var(--color-surface-rule)] mt-[var(--space-12)] pt-[var(--space-8)]">
           <h3
             className="font-bold text-[var(--color-text-on-dark)] mb-[var(--space-4)]"
             style={{ fontSize: "var(--font-size-sub)" }}

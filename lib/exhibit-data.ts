@@ -316,8 +316,7 @@ export const exhibitData: ExhibitData = {
       {
         value: "~93%",
         label: "Capacity Factor",
-        context:
-          "Highest of any energy source — nuclear plants run 24/7",
+        context: "Highest of any energy source — nuclear plants run 24/7",
         sourceId: "eia_nuclear_explained",
       },
       {
@@ -401,8 +400,7 @@ export const exhibitData: ExhibitData = {
       id: "nuclearplant_animation",
       type: "animation",
       title: "How a Nuclear Reactor Actually Works",
-      sourceUrl:
-        "https://www.nei.org/fundamentals/how-a-nuclear-reactor-works",
+      sourceUrl: "https://www.nei.org/fundamentals/how-a-nuclear-reactor-works",
       recommendedUse:
         "Explain reactor heat generation, steam production, turbine rotation, and electricity production.",
       notes:
@@ -492,12 +490,10 @@ export const exhibitData: ExhibitData = {
       id: "nrc_spent_fuel_storage",
       type: "reference_page",
       title: "Spent Fuel Storage",
-      sourceUrl:
-        "https://www.nrc.gov/waste/spent-fuel-storage/index.html",
+      sourceUrl: "https://www.nrc.gov/waste/spent-fuel-storage/index.html",
       recommendedUse:
         "Explain how spent nuclear fuel is safely stored and managed after use in a reactor.",
-      notes:
-        "Authoritative NRC overview of wet and dry storage methods.",
+      notes: "Authoritative NRC overview of wet and dry storage methods.",
       licenseNote: "Public agency source; verify any graphic reuse terms.",
     },
     {
@@ -505,8 +501,7 @@ export const exhibitData: ExhibitData = {
       type: "educational_page",
       title: "Nuclear explained",
       sourceUrl: "https://www.eia.gov/energyexplained/nuclear/",
-      recommendedUse:
-        "Top-level EIA portal for U.S. nuclear energy data.",
+      recommendedUse: "Top-level EIA portal for U.S. nuclear energy data.",
       notes:
         "Good general-purpose reference for nuclear capacity factor and generation statistics.",
       licenseNote:
@@ -545,8 +540,7 @@ export const exhibitData: ExhibitData = {
         "Introduce next-generation reactor technology: smaller footprint, flexible siting, incremental capacity additions.",
       notes:
         "Covers NuScale design approval, DOE R&D program, and deployment timeline.",
-      licenseNote:
-        "Public agency source; suitable for citation and reference.",
+      licenseNote: "Public agency source; suitable for citation and reference.",
     },
   ],
 };

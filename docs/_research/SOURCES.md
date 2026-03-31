@@ -3,6 +3,7 @@ Museum Concept: Nuclear Energy Generation
 Explanation: My museum will focus on the benefits of nuclear energy production compared to burning fossil fuels like coal, oil, and gas. It will also give a general idea of how energy is produced in nuclear reactors since it is not common knowledge. The museum can be helpful for people who are uninformed about nuclear power and can help address common misconceptions about nuclear energy and its safety. It is important to stay informed on this topic because energy needs will be increasing in the future as more clean, reliable power is needed for AI datacenters.
 
 Sources:
+
 - ![uranium vs fossil fuels diagram](../../public/assets/images/uranium_vs_fossil_fuels_diagram.png)https://elements.visualcapitalist.com/the-power-of-a-uranium-pellet
   - This diagram helps visualize the energy densities of different fuel sources.
   - It helps the reader understand how much fossil fuel is needed to produce the same amount of energy as one uranium pellet in a nuclear reactor's fuel assembly.

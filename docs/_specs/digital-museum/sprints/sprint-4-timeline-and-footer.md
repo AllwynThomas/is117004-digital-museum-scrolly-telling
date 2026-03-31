@@ -22,15 +22,15 @@
 
 ## Available Assets
 
-| Asset | Verified details | How this sprint uses it |
-|-------|-----------------|------------------------|
-| `components/ui/section-header.tsx` | Renders eyebrow + title + lede with light/dark variants | Reused for the timeline section header (dark variant) |
-| `components/ui/source-badge.tsx` | Renders source attributions with external link safety | Reused on timeline entries and footer source list |
-| `components/site/site-footer.tsx` | Skeleton footer from Sprint 0 with placeholder source list structure | Populated with full source data from exhibit-data |
-| `components/site/site-header.tsx` | Sticky nav with Intersection Observer active-state highlighting | Verified to work across all 7 sections now that all exist |
-| `lib/exhibit-data.ts` | Contains data for 6 sections (hero through future-demand) | Extended with timeline entries and complete source list |
-| `docs/_research/SOURCES.json` | All source entries: primary, supporting, and timeline sources | Source of truth for the footer's organized source list |
-| `app/page.tsx` | Contains 6 implemented sections + 1 timeline placeholder | Replace timeline placeholder with full section |
+| Asset                              | Verified details                                                     | How this sprint uses it                                   |
+| ---------------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------- |
+| `components/ui/section-header.tsx` | Renders eyebrow + title + lede with light/dark variants              | Reused for the timeline section header (dark variant)     |
+| `components/ui/source-badge.tsx`   | Renders source attributions with external link safety                | Reused on timeline entries and footer source list         |
+| `components/site/site-footer.tsx`  | Skeleton footer from Sprint 0 with placeholder source list structure | Populated with full source data from exhibit-data         |
+| `components/site/site-header.tsx`  | Sticky nav with Intersection Observer active-state highlighting      | Verified to work across all 7 sections now that all exist |
+| `lib/exhibit-data.ts`              | Contains data for 6 sections (hero through future-demand)            | Extended with timeline entries and complete source list   |
+| `docs/_research/SOURCES.json`      | All source entries: primary, supporting, and timeline sources        | Source of truth for the footer's organized source list    |
+| `app/page.tsx`                     | Contains 6 implemented sections + 1 timeline placeholder             | Replace timeline placeholder with full section            |
 
 ## Tasks
 

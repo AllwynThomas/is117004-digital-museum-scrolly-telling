@@ -19,23 +19,23 @@
 
 ## Available Assets
 
-| Asset | Verified details | How this sprint uses it |
-|-------|-----------------|------------------------|
-| `reference/package.json` | Contains the full dependency list and npm scripts for the reference Next.js project | Model for creating the project's own `package.json` with correct dependencies and scripts |
-| `reference/next.config.ts` | Static export (`output: 'export'`), `basePath` from env var, `images: { unoptimized: true }` | Template for the project's `next.config.ts` — simplified for this site (no remote image patterns needed) |
-| `reference/tsconfig.json` | Strict mode, `@/*` path alias, bundler module resolution | Copied and adapted for this project |
-| `reference/eslint.config.mjs` | ESLint config for Next.js | Copied for this project |
-| `reference/postcss.config.mjs` | PostCSS config for Tailwind | Copied for this project |
-| `reference/vitest.config.ts` | Vitest with jsdom, React plugin, `@/` alias, `tests/` include | Copied for this project |
-| `reference/playwright.config.ts` | Playwright config for browser tests | Copied for this project |
-| `reference/components.json` | shadcn/ui component configuration (New York style) | Copied for this project |
-| `reference/app/layout.tsx` | Root layout pattern: `next/font/google`, metadata export, `<html lang="en">`, SiteHeader/SiteFooter wrapping | Structural model for this project's layout (different font, different metadata) |
-| `reference/app/globals.css` | CSS custom properties and Tailwind directives | Structural model — tokens will be entirely different (Swiss style nuclear palette) |
-| `reference/lib/utils.ts` | `cn()` utility using `clsx` and `tailwind-merge` | Copied directly |
-| `reference/tests/setup.ts` | Vitest setup with `@testing-library/jest-dom` | Copied directly |
-| `docs/_specs/digital-museum/spec.md` | Complete specification with color system, type scale, spacing scale, grid, and metadata requirements | Source of truth for all design token values |
-| `docs/_research/SOURCES.json` | All source entries with IDs, URLs, titles, and section mappings | Referenced by `lib/exhibit-data.ts` type definitions |
-| `public/assets/images/` | 3 images: `uranium_vs_fossil_fuels_diagram.png`, `safest_cleanest_sources_of_energy_chart.png`, `nuclearplant.gif` | Already in place — no action needed this sprint; confirmed available for later sprints |
+| Asset                                | Verified details                                                                                                   | How this sprint uses it                                                                                  |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| `reference/package.json`             | Contains the full dependency list and npm scripts for the reference Next.js project                                | Model for creating the project's own `package.json` with correct dependencies and scripts                |
+| `reference/next.config.ts`           | Static export (`output: 'export'`), `basePath` from env var, `images: { unoptimized: true }`                       | Template for the project's `next.config.ts` — simplified for this site (no remote image patterns needed) |
+| `reference/tsconfig.json`            | Strict mode, `@/*` path alias, bundler module resolution                                                           | Copied and adapted for this project                                                                      |
+| `reference/eslint.config.mjs`        | ESLint config for Next.js                                                                                          | Copied for this project                                                                                  |
+| `reference/postcss.config.mjs`       | PostCSS config for Tailwind                                                                                        | Copied for this project                                                                                  |
+| `reference/vitest.config.ts`         | Vitest with jsdom, React plugin, `@/` alias, `tests/` include                                                      | Copied for this project                                                                                  |
+| `reference/playwright.config.ts`     | Playwright config for browser tests                                                                                | Copied for this project                                                                                  |
+| `reference/components.json`          | shadcn/ui component configuration (New York style)                                                                 | Copied for this project                                                                                  |
+| `reference/app/layout.tsx`           | Root layout pattern: `next/font/google`, metadata export, `<html lang="en">`, SiteHeader/SiteFooter wrapping       | Structural model for this project's layout (different font, different metadata)                          |
+| `reference/app/globals.css`          | CSS custom properties and Tailwind directives                                                                      | Structural model — tokens will be entirely different (Swiss style nuclear palette)                       |
+| `reference/lib/utils.ts`             | `cn()` utility using `clsx` and `tailwind-merge`                                                                   | Copied directly                                                                                          |
+| `reference/tests/setup.ts`           | Vitest setup with `@testing-library/jest-dom`                                                                      | Copied directly                                                                                          |
+| `docs/_specs/digital-museum/spec.md` | Complete specification with color system, type scale, spacing scale, grid, and metadata requirements               | Source of truth for all design token values                                                              |
+| `docs/_research/SOURCES.json`        | All source entries with IDs, URLs, titles, and section mappings                                                    | Referenced by `lib/exhibit-data.ts` type definitions                                                     |
+| `public/assets/images/`              | 3 images: `uranium_vs_fossil_fuels_diagram.png`, `safest_cleanest_sources_of_energy_chart.png`, `nuclearplant.gif` | Already in place — no action needed this sprint; confirmed available for later sprints                   |
 
 ## Tasks
 
@@ -60,7 +60,7 @@ Required files to create:
   `vitest`, `@vitejs/plugin-react`, `jsdom`, `@testing-library/jest-dom`,
   `@testing-library/react`, `@playwright/test`, `@lhci/cli`.
 - `next.config.ts` — static export with `output: 'export'`, `trailingSlash:
-  true`, `basePath` from `process.env.NEXT_PUBLIC_BASE_PATH || ""`, and
+true`, `basePath` from `process.env.NEXT_PUBLIC_BASE_PATH || ""`, and
   `images: { unoptimized: true }`. No remote image patterns needed — all
   images are local.
 - `tsconfig.json` — strict mode, `@/*` path alias, same config as reference.
@@ -88,6 +88,7 @@ block defining every CSS custom property from the spec's Design Foundations.
 Required token groups in `:root`:
 
 **Colors:**
+
 - `--color-bg-primary: #ffffff`
 - `--color-bg-secondary: #f6f8fa`
 - `--color-bg-tertiary: #eaeef2`
@@ -104,6 +105,7 @@ Required token groups in `:root`:
 - `--color-text-secondary-on-dark: #9ca3af`
 
 **Typography:**
+
 - `--font-family-primary: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif`
 - `--font-size-display: 48px` (with mobile override `32px`)
 - `--font-size-section: 36px` (with mobile override `26px`)
@@ -113,6 +115,7 @@ Required token groups in `:root`:
 - `--font-size-badge: 12px`
 
 **Spacing scale:**
+
 - `--space-1: 4px`
 - `--space-2: 8px`
 - `--space-3: 12px`
@@ -125,12 +128,14 @@ Required token groups in `:root`:
 - `--space-32: 128px`
 
 **Grid:**
+
 - `--grid-max-width: 1200px`
 - `--grid-gutter: 24px`
 - `--grid-margin-mobile: 24px`
 - `--grid-margin-tablet: 48px`
 
 **Base styles:**
+
 - Set `font-family` on `body` to the primary font variable.
 - Set `color` to `--color-text-primary`.
 - Set `background` to `--color-bg-primary`.

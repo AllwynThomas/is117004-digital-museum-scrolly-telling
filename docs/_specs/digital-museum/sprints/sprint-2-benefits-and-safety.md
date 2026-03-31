@@ -19,16 +19,16 @@
 
 ## Available Assets
 
-| Asset | Verified details | How this sprint uses it |
-|-------|-----------------|------------------------|
-| `public/assets/images/safest_cleanest_sources_of_energy_chart.png` | Our World in Data chart comparing deaths and emissions across energy sources | Benefits section primary visual — the exhibit's key evidence display |
-| `components/ui/section-header.tsx` | Renders eyebrow + title + lede with light/dark variants | Reused for both section headers |
-| `components/ui/exhibit-image.tsx` | Renders images with captions, source badges, and reduced-motion support | Reused for the safety/emissions chart in Benefits |
-| `components/ui/stat-card.tsx` | Renders statistics with value, label, context | Reused for benefit highlight cards |
-| `components/ui/source-badge.tsx` | Renders source attributions with external link safety | Reused on all data displays |
-| `lib/exhibit-data.ts` | Typed interfaces already defined; hero and how-it-works data populated | Extend with benefits and safety section data |
-| `docs/_research/SOURCES.json` | Source entries: `safest_cleanest_sources_chart`, `iaea_clean_energy_pdf`, `iaea_smart_stable_reliable`, `ourworldindata_chernobyl_fukushima`, `nrc_spent_fuel_storage` | Data source for all attributions in these sections |
-| `app/page.tsx` | Contains placeholder sections for `#benefits` and `#safety` | Replace placeholders with full exhibit content |
+| Asset                                                              | Verified details                                                                                                                                                       | How this sprint uses it                                              |
+| ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `public/assets/images/safest_cleanest_sources_of_energy_chart.png` | Our World in Data chart comparing deaths and emissions across energy sources                                                                                           | Benefits section primary visual — the exhibit's key evidence display |
+| `components/ui/section-header.tsx`                                 | Renders eyebrow + title + lede with light/dark variants                                                                                                                | Reused for both section headers                                      |
+| `components/ui/exhibit-image.tsx`                                  | Renders images with captions, source badges, and reduced-motion support                                                                                                | Reused for the safety/emissions chart in Benefits                    |
+| `components/ui/stat-card.tsx`                                      | Renders statistics with value, label, context                                                                                                                          | Reused for benefit highlight cards                                   |
+| `components/ui/source-badge.tsx`                                   | Renders source attributions with external link safety                                                                                                                  | Reused on all data displays                                          |
+| `lib/exhibit-data.ts`                                              | Typed interfaces already defined; hero and how-it-works data populated                                                                                                 | Extend with benefits and safety section data                         |
+| `docs/_research/SOURCES.json`                                      | Source entries: `safest_cleanest_sources_chart`, `iaea_clean_energy_pdf`, `iaea_smart_stable_reliable`, `ourworldindata_chernobyl_fukushima`, `nrc_spent_fuel_storage` | Data source for all attributions in these sections                   |
+| `app/page.tsx`                                                     | Contains placeholder sections for `#benefits` and `#safety`                                                                                                            | Replace placeholders with full exhibit content                       |
 
 ## Tasks
 
@@ -63,6 +63,7 @@ npx tsc --noEmit
 Update `lib/exhibit-data.ts` with real content for both sections.
 
 **Benefits section data:**
+
 - `id: "benefits"`, `title: "Why Nuclear Beats Fossil Fuels"`,
   `eyebrow: "The Evidence"`
 - Lede: Sage-voice introduction to the comparative data.
@@ -74,6 +75,7 @@ Update `lib/exhibit-data.ts` with real content for both sections.
   dominate the public conversation?"
 
 **Benefits stat cards (4):**
+
 1. "Low Emissions" / "Lifecycle CO₂ comparable to wind and solar" /
    Source: IAEA
 2. "~93%" / "Capacity Factor" / "Highest of any energy source — nuclear
@@ -84,6 +86,7 @@ Update `lib/exhibit-data.ts` with real content for both sections.
    major source" / Source: Our World in Data
 
 **Safety section data:**
+
 - `id: "safety"`, `title: "Addressing Nuclear Safety and Waste"`,
   `eyebrow: "Honest Context"`
 - Lede: lead with the correct data, not the misconception (Sage approach).
@@ -98,6 +101,7 @@ Update `lib/exhibit-data.ts` with real content for both sections.
   finish."
 
 **Safety comparison data:**
+
 - Deaths per TWh comparison: Nuclear vs. Coal vs. Oil vs. Gas
   (from Our World in Data)
 - Waste volume context: "All U.S. spent fuel from 60+ years of operation
@@ -132,6 +136,7 @@ Required structure (from spec):
 
 **Copy review checkpoint:** Before committing, verify all text in this
 section against the Sage voice checklist:
+
 - No unsourced superlatives ("best," "amazing")
 - No promotional language ("Nuclear is the answer!")
 - Every claim tied to a named source
@@ -167,6 +172,7 @@ Required structure (from spec):
 
 **Copy review checkpoint:** This is the most voice-sensitive section.
 Verify against Sage guidelines:
+
 - Names Chernobyl and Fukushima — does not avoid them
 - States actual data — does not minimize or exaggerate
 - Compares to fossil-fuel mortality — provides perspective

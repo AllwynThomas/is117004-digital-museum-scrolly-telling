@@ -1,0 +1,4 @@
+.lighthouseci/
+test-results/
+.next/
+out/

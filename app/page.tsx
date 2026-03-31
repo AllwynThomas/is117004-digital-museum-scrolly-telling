@@ -19,9 +19,7 @@ export default function Home() {
   const benefitsSection = exhibitData.sections.find(
     (s) => s.id === "benefits",
   )!;
-  const safetySection = exhibitData.sections.find(
-    (s) => s.id === "safety",
-  )!;
+  const safetySection = exhibitData.sections.find((s) => s.id === "safety")!;
   const heroStats = exhibitData.statCards["hero"];
   const howItWorksSteps = exhibitData.processSteps["how-it-works"];
   const benefitsStats = exhibitData.statCards["benefits"];
@@ -73,7 +71,7 @@ export default function Home() {
 
           <div className="mt-[var(--space-8)]">
             <ExhibitImage
-              src="/assets/images/uranium_vs_fossil_fuels_diagram.png"
+              src="/assets/images/uranium_vs_fossil_fuels_diagram.webp"
               alt="Infographic comparing energy density: a single uranium fuel pellet produces as much energy as one ton of coal, 17,000 cubic feet of natural gas, or 149 gallons of oil."
               caption="Energy density comparison — one uranium pellet versus fossil fuel equivalents."
               sourceName="Visual Capitalist"
@@ -130,7 +128,7 @@ export default function Home() {
               caption="How a pressurized water reactor generates electricity."
               sourceName="Nuclear Energy Institute"
               sourceUrl={reactorAnimSource?.sourceUrl}
-              reducedMotionSrc="/assets/images/uranium_vs_fossil_fuels_diagram.png"
+              reducedMotionSrc="/assets/images/uranium_vs_fossil_fuels_diagram.webp"
               variant="light"
             />
           </div>
@@ -187,7 +185,7 @@ export default function Home() {
 
           <div className="mt-[var(--space-8)]">
             <ExhibitImage
-              src="/assets/images/safest_cleanest_sources_of_energy_chart.png"
+              src="/assets/images/safest_cleanest_sources_of_energy_chart.webp"
               alt="Chart comparing deaths per unit of energy and greenhouse gas emissions across energy sources including coal, oil, natural gas, biomass, hydropower, wind, nuclear, and solar — nuclear ranks among the lowest for both metrics."
               caption="Deaths and greenhouse gas emissions by energy source."
               sourceName="Our World in Data"
@@ -330,7 +328,7 @@ export default function Home() {
 
           <div className="mt-[var(--space-8)]">
             <ExhibitImage
-              src="/assets/images/fuel_cycle.png"
+              src="/assets/images/fuel_cycle.webp"
               alt="Diagram of the nuclear fuel cycle: Mining and Milling, Conversion, Enrichment, Fuel Fabrication, Electricity Generation, Spent Fuel Storage, and Waste Disposal arranged in a circular flow around a central label."
               caption="The nuclear fuel cycle — from uranium mining to waste disposal."
               sourceName="IAEA"
@@ -407,7 +405,7 @@ export default function Home() {
 
           <div className="mt-[var(--space-8)]">
             <ExhibitImage
-              src="/assets/images/3_reactors_future_demand.png"
+              src="/assets/images/3_reactors_future_demand.webp"
               alt="Comparison of three reactor sizes: Large Conventional Reactor at 700+ MW(e) powering cities, Small Modular Reactor up to 300 MW(e) for towns and industrial sites, and Microreactor up to ~10 MW(e) for remote locations."
               caption="Reactor technology at three scales — from large conventional plants to transportable microreactors."
               sourceName="IAEA"

@@ -221,37 +221,67 @@
     {
       "section_id": "hero",
       "title": "Why Nuclear Energy Matters",
-      "best_sources": ["uranium_vs_fossil_fuels_diagram", "safest_cleanest_sources_chart"]
+      "best_sources": [
+        "uranium_vs_fossil_fuels_diagram",
+        "safest_cleanest_sources_chart"
+      ]
     },
     {
       "section_id": "how_it_works",
       "title": "How a Reactor Makes Electricity",
-      "best_sources": ["nuclearplant_animation", "nrc_pwr_overview", "nrc_reactor_education", "doe_nuclear_101", "iaea_science_of_nuclear_power"]
+      "best_sources": [
+        "nuclearplant_animation",
+        "nrc_pwr_overview",
+        "nrc_reactor_education",
+        "doe_nuclear_101",
+        "iaea_science_of_nuclear_power"
+      ]
     },
     {
       "section_id": "benefits",
       "title": "Why Nuclear Beats Fossil Fuels",
-      "best_sources": ["safest_cleanest_sources_chart", "iaea_clean_energy_pdf", "iaea_smart_stable_reliable"]
+      "best_sources": [
+        "safest_cleanest_sources_chart",
+        "iaea_clean_energy_pdf",
+        "iaea_smart_stable_reliable"
+      ]
     },
     {
       "section_id": "fuel_cycle",
       "title": "From Uranium to Electricity",
-      "best_sources": ["eia_nuclear_fuel_cycle", "iaea_science_of_nuclear_power", "eia_nuclear_explained"]
+      "best_sources": [
+        "eia_nuclear_fuel_cycle",
+        "iaea_science_of_nuclear_power",
+        "eia_nuclear_explained"
+      ]
     },
     {
       "section_id": "future_demand",
       "title": "Powering AI and the Future Grid",
-      "best_sources": ["deloitte_data_center_nuclear", "iaea_smart_stable_reliable", "doe_smr_overview"]
+      "best_sources": [
+        "deloitte_data_center_nuclear",
+        "iaea_smart_stable_reliable",
+        "doe_smr_overview"
+      ]
     },
     {
       "section_id": "safety",
       "title": "Addressing Nuclear Safety and Waste",
-      "best_sources": ["safest_cleanest_sources_chart", "ourworldindata_chernobyl_fukushima", "nrc_spent_fuel_storage"]
+      "best_sources": [
+        "safest_cleanest_sources_chart",
+        "ourworldindata_chernobyl_fukushima",
+        "nrc_spent_fuel_storage"
+      ]
     },
     {
       "section_id": "timeline",
       "title": "The Rise of Nuclear Power",
-      "best_sources": ["iaea_nuclear_power_topic", "world_nuclear_world_energy_needs", "eia_nuclear_energy_overview_data", "ourworldindata_electricity_mix"]
+      "best_sources": [
+        "iaea_nuclear_power_topic",
+        "world_nuclear_world_energy_needs",
+        "eia_nuclear_energy_overview_data",
+        "ourworldindata_electricity_mix"
+      ]
     }
   ],
   "tone_guidance": [
