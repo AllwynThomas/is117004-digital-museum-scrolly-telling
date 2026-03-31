@@ -1,0 +1,92 @@
+"use client";
+
+import Image from "next/image";
+import { useCallback, useSyncExternalStore } from "react";
+import { cn } from "@/lib/utils";
+import { SourceBadge } from "@/components/ui/source-badge";
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+function prefixSrc(src: string): string {
+  if (src.startsWith("/") && basePath) {
+    return `${basePath}${src}`;
+  }
+  return src;
+}
+
+function useReducedMotion(): boolean {
+  const subscribe = useCallback((callback: () => void) => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    mq.addEventListener("change", callback);
+    return () => mq.removeEventListener("change", callback);
+  }, []);
+
+  const getSnapshot = useCallback(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    [],
+  );
+
+  const getServerSnapshot = useCallback(() => false, []);
+
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+}
+
+interface ExhibitImageProps {
+  src: string;
+  alt: string;
+  caption: string;
+  sourceName: string;
+  sourceUrl?: string;
+  priority?: boolean;
+  reducedMotionSrc?: string;
+  variant?: "light" | "dark";
+  className?: string;
+}
+
+export function ExhibitImage({
+  src,
+  alt,
+  caption,
+  sourceName,
+  sourceUrl,
+  priority = false,
+  reducedMotionSrc,
+  variant = "light",
+  className,
+}: ExhibitImageProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  const imageSrc =
+    prefersReducedMotion && reducedMotionSrc ? reducedMotionSrc : src;
+
+  return (
+    <figure className={cn("space-y-[var(--space-3)]", className)}>
+      <div className="relative w-full min-w-0">
+        <Image
+          src={prefixSrc(imageSrc)}
+          alt={alt}
+          width={1200}
+          height={675}
+          priority={priority}
+          className="w-full h-auto min-w-[0] md:min-w-[600px]"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+        />
+      </div>
+      <figcaption
+        className={cn(
+          "flex flex-wrap items-baseline gap-[var(--space-2)] text-[length:var(--font-size-caption)]",
+          variant === "dark"
+            ? "text-[var(--color-text-secondary-on-dark)]"
+            : "text-[var(--color-text-secondary)]",
+        )}
+      >
+        <span>{caption}</span>
+        <SourceBadge
+          sourceName={sourceName}
+          sourceUrl={sourceUrl}
+          variant={variant}
+        />
+      </figcaption>
+    </figure>
+  );
+}
