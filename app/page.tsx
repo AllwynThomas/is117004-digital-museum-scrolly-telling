@@ -25,6 +25,14 @@ export default function Home() {
   const howItWorksSteps = exhibitData.processSteps["how-it-works"];
   const benefitsStats = exhibitData.statCards["benefits"];
   const safetyComparisons = exhibitData.comparisonData["safety"];
+  const fuelCycleSection = exhibitData.sections.find(
+    (s) => s.id === "fuel-cycle",
+  )!;
+  const futureDemandSection = exhibitData.sections.find(
+    (s) => s.id === "future-demand",
+  )!;
+  const fuelCycleSteps = exhibitData.processSteps["fuel-cycle"];
+  const futureDemandStats = exhibitData.statCards["future-demand"];
 
   const heroSource = getSource("uranium_vs_fossil_fuels_diagram");
   const reactorAnimSource = getSource("nuclearplant_animation");
@@ -35,10 +43,13 @@ export default function Home() {
   const iaaeStableSource = getSource("iaea_smart_stable_reliable");
   const chernobylSource = getSource("ourworldindata_chernobyl_fukushima");
   const nrcSpentFuelSource = getSource("nrc_spent_fuel_storage");
+  const eiaFuelCycleSource = getSource("eia_nuclear_fuel_cycle");
+  const iaaeNuclearSource = getSource("iaea_science_of_nuclear_power");
+  const eiaNuclearSource = getSource("eia_nuclear_explained");
+  const deloitteSource = getSource("deloitte_data_center_nuclear");
+  const doeSmrSource = getSource("doe_smr_overview");
 
   const placeholderSections = [
-    { id: "fuel-cycle", title: "Fuel Cycle" },
-    { id: "future-demand", title: "Powering AI and the Future Grid" },
     { id: "timeline", title: "Timeline" },
   ];
 
@@ -296,6 +307,149 @@ export default function Home() {
           {safetySection.transitionText && (
             <p className="mt-[var(--space-12)] text-[length:var(--font-size-body)] italic text-[var(--color-text-secondary)]">
               {safetySection.transitionText}
+            </p>
+          )}
+        </div>
+      </section>
+
+      {/* ── Fuel Cycle Section ── */}
+      <section
+        id="fuel-cycle"
+        aria-labelledby="fuel-cycle-title"
+        className="bg-[var(--color-bg-secondary)] py-[var(--space-16)] px-[var(--space-6)]"
+      >
+        <div className="mx-auto max-w-[var(--grid-max-width)]">
+          <SectionHeader
+            eyebrow={fuelCycleSection.eyebrow}
+            title={fuelCycleSection.title}
+            lede={fuelCycleSection.lede}
+            id="fuel-cycle-title"
+            variant="light"
+          />
+
+          <div className="mt-[var(--space-8)]">
+            <ExhibitImage
+              src="/assets/images/fuel_cycle.png"
+              alt="Diagram of the nuclear fuel cycle: Mining and Milling, Conversion, Enrichment, Fuel Fabrication, Electricity Generation, Spent Fuel Storage, and Waste Disposal arranged in a circular flow around a central label."
+              caption="The nuclear fuel cycle — from uranium mining to waste disposal."
+              sourceName="IAEA"
+              sourceUrl="https://www.iaea.org/newscenter/multimedia/videos/what-is-the-nuclear-fuel-cycle"
+              variant="light"
+            />
+          </div>
+
+          <p className="mt-[var(--space-8)] max-w-[720px] text-[length:var(--font-size-body)] leading-relaxed text-[var(--color-text-secondary)]">
+            {fuelCycleSection.bodyContent}
+          </p>
+
+          <div className="mt-[var(--space-12)] grid grid-cols-1 gap-[var(--grid-gutter)] md:grid-cols-2 xl:grid-cols-3">
+            {fuelCycleSteps.map((step) => (
+              <StepCard
+                key={step.stepNumber}
+                stepNumber={step.stepNumber}
+                title={step.title}
+                description={step.description}
+                accentColor={fuelCycleSection.accentColor}
+              />
+            ))}
+          </div>
+
+          <div className="mt-[var(--space-8)] flex flex-wrap gap-[var(--space-3)]">
+            {eiaFuelCycleSource && (
+              <SourceBadge
+                sourceName="EIA — Nuclear Fuel Cycle"
+                sourceUrl={eiaFuelCycleSource.sourceUrl}
+              />
+            )}
+            {iaaeNuclearSource && (
+              <SourceBadge
+                sourceName="IAEA — Science of Nuclear Power"
+                sourceUrl={iaaeNuclearSource.sourceUrl}
+              />
+            )}
+            {eiaNuclearSource && (
+              <SourceBadge
+                sourceName="EIA — Nuclear Explained"
+                sourceUrl={eiaNuclearSource.sourceUrl}
+              />
+            )}
+            {nrcSpentFuelSource && (
+              <SourceBadge
+                sourceName="NRC — Spent Fuel Storage"
+                sourceUrl={nrcSpentFuelSource.sourceUrl}
+              />
+            )}
+          </div>
+
+          {fuelCycleSection.transitionText && (
+            <p className="mt-[var(--space-12)] text-[length:var(--font-size-body)] italic text-[var(--color-text-secondary)]">
+              {fuelCycleSection.transitionText}
+            </p>
+          )}
+        </div>
+      </section>
+
+      {/* ── Future Demand Section ── */}
+      <section
+        id="future-demand"
+        aria-labelledby="future-demand-title"
+        className="bg-[var(--color-bg-primary)] py-[var(--space-16)] px-[var(--space-6)]"
+      >
+        <div className="mx-auto max-w-[var(--grid-max-width)]">
+          <SectionHeader
+            eyebrow={futureDemandSection.eyebrow}
+            title={futureDemandSection.title}
+            lede={futureDemandSection.lede}
+            id="future-demand-title"
+            variant="light"
+          />
+
+          <div className="mt-[var(--space-8)]">
+            <ExhibitImage
+              src="/assets/images/3_reactors_future_demand.png"
+              alt="Comparison of three reactor sizes: Large Conventional Reactor at 700+ MW(e) powering cities, Small Modular Reactor up to 300 MW(e) for towns and industrial sites, and Microreactor up to ~10 MW(e) for remote locations."
+              caption="Reactor technology at three scales — from large conventional plants to transportable microreactors."
+              sourceName="IAEA"
+              sourceUrl="https://www.iaea.org/newscenter/news/what-are-small-modular-reactors-smrs"
+              variant="light"
+            />
+          </div>
+
+          <p className="mt-[var(--space-8)] max-w-[720px] text-[length:var(--font-size-body)] leading-relaxed text-[var(--color-text-secondary)]">
+            {futureDemandSection.bodyContent}
+          </p>
+
+          <div className="mt-[var(--space-12)] grid grid-cols-1 gap-[var(--space-8)] sm:grid-cols-3">
+            {futureDemandStats.map((stat) => (
+              <StatCard
+                key={stat.label}
+                value={stat.value}
+                label={stat.label}
+                context={stat.context}
+                accentColor={futureDemandSection.accentColor}
+                variant="light"
+              />
+            ))}
+          </div>
+
+          <div className="mt-[var(--space-8)] flex flex-wrap gap-[var(--space-3)]">
+            {deloitteSource && (
+              <SourceBadge
+                sourceName="Deloitte — Data Center Nuclear"
+                sourceUrl={deloitteSource.sourceUrl}
+              />
+            )}
+            {doeSmrSource && (
+              <SourceBadge
+                sourceName="DOE — Small Modular Reactors"
+                sourceUrl={doeSmrSource.sourceUrl}
+              />
+            )}
+          </div>
+
+          {futureDemandSection.transitionText && (
+            <p className="mt-[var(--space-12)] text-[length:var(--font-size-body)] italic text-[var(--color-text-secondary)]">
+              {futureDemandSection.transitionText}
             </p>
           )}
         </div>

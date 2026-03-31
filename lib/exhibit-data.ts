@@ -123,6 +123,39 @@ export const exhibitData: ExhibitData = {
       transitionText:
         "Nuclear fuel has one of the most carefully managed lifecycles of any energy source. Here is how it works from start to finish.",
     },
+    {
+      id: "fuel-cycle",
+      title: "From Uranium to Electricity",
+      eyebrow: "The Full Journey",
+      lede: "Nuclear fuel follows one of the most carefully regulated industrial lifecycles of any energy source — from the mine to the reactor and into long-term storage.",
+      bodyContent:
+        "Understanding the nuclear fuel cycle removes much of the mystery around nuclear energy. Each stage — mining, enrichment, fabrication, reactor operation, and storage — is governed by strict international and domestic regulations. The result is a tightly controlled process that converts a naturally occurring element into carbon-free electricity at industrial scale.",
+      sourceIds: [
+        "eia_nuclear_fuel_cycle",
+        "iaea_science_of_nuclear_power",
+        "eia_nuclear_explained",
+        "nrc_spent_fuel_storage",
+      ],
+      accentColor: "--color-accent-amber",
+      transitionText:
+        "With this lifecycle in view, the question becomes: where is nuclear energy headed next?",
+    },
+    {
+      id: "future-demand",
+      title: "Powering AI and the Future Grid",
+      eyebrow: "Looking Ahead",
+      lede: "As electricity demand accelerates — driven by AI data centers and widespread electrification — nuclear energy offers a proven, scalable, carbon-free answer.",
+      bodyContent:
+        "AI data centers are emerging as one of the fastest-growing sources of electricity demand. According to Deloitte analysis, data center power consumption is growing at roughly 30% per year and could account for up to 8% of total U.S. electricity by 2030. These facilities require round-the-clock, high-density, low-carbon electricity — precisely the profile nuclear delivers. Small Modular Reactors (SMRs) represent the next generation of nuclear technology: compact, factory-built, and designed for flexible deployment near demand centers. With scalable capacity additions and shorter construction timelines, SMRs are positioned to meet the energy needs of an increasingly electrified future.",
+      sourceIds: [
+        "deloitte_data_center_nuclear",
+        "doe_smr_overview",
+        "iaea_smart_stable_reliable",
+      ],
+      accentColor: "--color-accent-blue",
+      transitionText:
+        "Nuclear power is not new. It has been growing for eight decades. Here is how it became a global energy source.",
+    },
   ],
   timelineEntries: [],
   processSteps: {
@@ -150,6 +183,38 @@ export const exhibitData: ExhibitData = {
         title: "Cooling & Recycling",
         description:
           "Steam condenses back into water in the cooling system and returns to the steam generator to repeat the cycle.",
+      },
+    ],
+    "fuel-cycle": [
+      {
+        stepNumber: 1,
+        title: "Mining & Milling",
+        description:
+          "Uranium ore is extracted from the earth and processed into uranium oxide concentrate, known as yellowcake.",
+      },
+      {
+        stepNumber: 2,
+        title: "Conversion & Enrichment",
+        description:
+          "Yellowcake is converted to uranium hexafluoride gas and enriched to increase the concentration of fissile U-235 from about 0.7% to 3–5%.",
+      },
+      {
+        stepNumber: 3,
+        title: "Fuel Fabrication",
+        description:
+          "Enriched uranium is formed into small ceramic pellets, stacked into metal fuel rods, and assembled into fuel bundles ready for the reactor.",
+      },
+      {
+        stepNumber: 4,
+        title: "Reactor Operation",
+        description:
+          "Fuel assemblies are loaded into the reactor core, where controlled fission generates heat that produces electricity through the steam-turbine cycle.",
+      },
+      {
+        stepNumber: 5,
+        title: "Storage & Disposal",
+        description:
+          "Spent fuel is first cooled in water pools at the reactor site, then transferred to dry cask storage — robust concrete and steel containers designed for decades of safe containment.",
       },
     ],
   },
@@ -201,6 +266,29 @@ export const exhibitData: ExhibitData = {
         context:
           "Nuclear has the lowest death rate per TWh of any major source",
         sourceId: "safest_cleanest_sources_chart",
+      },
+    ],
+    "future-demand": [
+      {
+        value: "~30%",
+        label: "Annual Growth",
+        context:
+          "Data center power demand is increasing at roughly 30% per year",
+        sourceId: "deloitte_data_center_nuclear",
+      },
+      {
+        value: "24/7",
+        label: "Carbon-Free Power",
+        context:
+          "Data centers require round-the-clock, high-density, low-carbon electricity — precisely the profile nuclear delivers",
+        sourceId: "deloitte_data_center_nuclear",
+      },
+      {
+        value: "SMRs",
+        label: "Small Modular Reactors",
+        context:
+          "Flexible, scalable, factory-built reactors designed for incremental capacity additions. Deployed near demand centers.",
+        sourceId: "doe_smr_overview",
       },
     ],
   },
@@ -344,6 +432,42 @@ export const exhibitData: ExhibitData = {
         "Good general-purpose reference for nuclear capacity factor and generation statistics.",
       licenseNote:
         "Public agency source; generally suitable for citation and reference.",
+    },
+    {
+      id: "eia_nuclear_fuel_cycle",
+      type: "educational_page",
+      title: "The nuclear fuel cycle",
+      sourceUrl:
+        "https://www.eia.gov/energyexplained/nuclear/the-nuclear-fuel-cycle.php",
+      recommendedUse:
+        "Explain uranium mining, enrichment, fuel use, and spent fuel handling.",
+      notes: "Helpful for a lifecycle or fuel-cycle section.",
+      licenseNote:
+        "Public agency source; generally suitable for citation and reference.",
+    },
+    {
+      id: "deloitte_data_center_nuclear",
+      type: "industry_analysis",
+      title: "Nuclear energy's role in powering data center growth",
+      sourceUrl:
+        "https://www.deloitte.com/us/en/insights/industry/power-and-utilities/nuclear-energy-powering-data-centers.html",
+      recommendedUse:
+        "Support a future-demand section focused on AI data centers and round-the-clock electricity needs.",
+      notes:
+        "Use as a current industry perspective, not as a primary technical source.",
+      licenseNote: "Verify reuse permission before publication.",
+    },
+    {
+      id: "doe_smr_overview",
+      type: "reference_page",
+      title: "Advanced Small Modular Reactors (SMRs)",
+      sourceUrl: "https://www.energy.gov/ne/small-modular-reactors",
+      recommendedUse:
+        "Introduce next-generation reactor technology: smaller footprint, flexible siting, incremental capacity additions.",
+      notes:
+        "Covers NuScale design approval, DOE R&D program, and deployment timeline.",
+      licenseNote:
+        "Public agency source; suitable for citation and reference.",
     },
   ],
 };
