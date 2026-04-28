@@ -15,6 +15,7 @@ type SceneKind = "plain" | "background" | "split" | "split-reverse";
 
 interface PresentationSlideProps {
   index: number;
+  isActive?: boolean;
   sceneKind: SceneKind;
   backgroundSrc?: string | null;
   headingId?: string;
@@ -60,6 +61,7 @@ export function useSceneProgress() {
 
 export function PresentationSlide({
   index,
+  isActive = false,
   sceneKind,
   backgroundSrc = null,
   headingId,
@@ -124,6 +126,7 @@ export function PresentationSlide({
         id={`scene-${index + 1}`}
         role="region"
         aria-labelledby={headingId}
+        data-active-scene={isActive ? "true" : "false"}
         data-presentation-slide="true"
         data-scene-index={index + 1}
         data-scene-kind={sceneKind}

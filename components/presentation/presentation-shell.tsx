@@ -1,5 +1,17 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import type { SceneNode } from "@/lib/scene-parser";
 
+import {
+  getActiveSceneIndex,
+  getNavigationState,
+  getPresentationSceneElements,
+  getSceneJumpTarget,
+  getSceneScrollOptions,
+} from "@/components/presentation/presentation-navigation";
+import { PresentationProgress } from "@/components/presentation/presentation-progress";
 import { SceneLayout } from "@/components/presentation/scene-layout";
 import { PresentationSlide } from "@/components/presentation/presentation-slide";
 
@@ -7,7 +19,9 @@ interface PresentationShellProps {
   scenes: SceneNode[];
 }
 
-function getSceneKind(scene: SceneNode) {
+type SceneKind = "plain" | "background" | "split" | "split-reverse";
+
+function getSceneKind(scene: SceneNode): SceneKind {
   if (scene.backgroundSrc) {
     return "background";
   }
@@ -54,6 +68,50 @@ function getSceneHeading(content: string) {
 }
 
 export function PresentationShell({ scenes }: PresentationShellProps) {
+  const [activeSceneIndex, setActiveSceneIndex] = useState(0);
+
+  useEffect(() => {
+    if (scenes.length === 0) {
+      return;
+    }
+
+    const updateActiveScene = () => {
+      try {
+        const sceneElements = getPresentationSceneElements(document);
+
+        if (sceneElements.length === 0) {
+          setActiveSceneIndex(0);
+          return;
+        }
+
+        setActiveSceneIndex(
+          getActiveSceneIndex({
+            sceneRects: sceneElements.map(({ element }) => {
+              const rect = element.getBoundingClientRect();
+
+              return {
+                top: rect.top,
+                height: rect.height,
+              };
+            }),
+            viewportHeight: window.innerHeight,
+          }),
+        );
+      } catch {
+        setActiveSceneIndex(0);
+      }
+    };
+
+    updateActiveScene();
+    window.addEventListener("scroll", updateActiveScene, { passive: true });
+    window.addEventListener("resize", updateActiveScene);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveScene);
+      window.removeEventListener("resize", updateActiveScene);
+    };
+  }, [scenes.length]);
+
   if (scenes.length === 0) {
     return (
       <main id="main-content" data-presentation-shell="true">
@@ -62,23 +120,71 @@ export function PresentationShell({ scenes }: PresentationShellProps) {
     );
   }
 
+  const sceneEntries = scenes.map((scene, index) => {
+    const sceneKind = getSceneKind(scene);
+    const heading = getSceneHeading(scene.cleanContent) ?? `Scene ${index + 1}`;
+    const headingId = `scene-${index + 1}-title`;
+    const paragraphs = getSceneParagraphs(scene.cleanContent);
+
+    return {
+      scene,
+      index,
+      sceneKind,
+      heading,
+      headingId,
+      paragraphs,
+    };
+  });
+
+  const navigation = getNavigationState(activeSceneIndex, sceneEntries.length);
+
+  const jumpToScene = (sceneIndex: number) => {
+    const jumpTarget = getSceneJumpTarget(sceneIndex, sceneEntries.length);
+    const element = document.getElementById(jumpTarget.id);
+
+    if (!element) {
+      return;
+    }
+
+    const prefersReducedMotion =
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+
+    element.scrollIntoView(getSceneScrollOptions(prefersReducedMotion));
+  };
+
   return (
-    <main id="main-content" data-presentation-shell="true">
-      {scenes.map((scene, index) => {
-        const heading = getSceneHeading(scene.cleanContent) ?? `Scene ${index + 1}`;
-        const headingId = `scene-${index + 1}-title`;
-        const paragraphs = getSceneParagraphs(scene.cleanContent);
+    <main
+      id="main-content"
+      data-presentation-shell="true"
+      data-active-scene={activeSceneIndex + 1}
+    >
+      <PresentationProgress
+        sceneLabels={sceneEntries.map(({ heading }) => heading)}
+        navigation={navigation}
+        onJumpToScene={jumpToScene}
+      />
+
+      {sceneEntries.map(
+        ({
+          scene,
+          index,
+          sceneKind,
+          heading,
+          headingId,
+          paragraphs,
+        }) => {
 
         return (
           <PresentationSlide
             key={`${headingId}-${heading}`}
             index={index}
+            isActive={index === activeSceneIndex}
             headingId={headingId}
-            sceneKind={getSceneKind(scene)}
+            sceneKind={sceneKind}
             backgroundSrc={scene.backgroundSrc}
           >
             <SceneLayout
-              sceneKind={getSceneKind(scene)}
+              sceneKind={sceneKind}
               heading={heading}
               headingId={headingId}
               paragraphs={paragraphs}
