@@ -1,0 +1,21 @@
+# Digital Museum Scrollytelling — Implementation Status
+
+Single source of truth for phase state. Update this file whenever a phase begins, completes, or becomes blocked.
+
+| Phase | Title | Status | Notes |
+|---|---|---|---|
+| 01 | Scene source and parser | ⏳ pending | Spec-defined markdown scene source and typed parser not started yet |
+| 02 | Presentation shell and slides | ⏳ pending | Depends on Phase 01 parser output and scene source |
+| 03 | Presentation navigation and progress | ⏳ pending | Depends on Phase 02 rendered scene deck |
+| 04 | Accessibility and regression | ⏳ pending | Final closeout for accessibility and full verification |
+
+## Legend
+
+- ⏳ pending — not started
+- 🔨 in-progress — actively being implemented
+- ✅ done — exit checks passed
+- ⚠️ blocked — waiting on a blocker recorded in the phase file
+
+## Last Updated
+
+Initialized. No implementation phases have started yet.
