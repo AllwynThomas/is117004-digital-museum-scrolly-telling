@@ -49,6 +49,26 @@
       "recommended_use": "Explain reactor heat generation, steam production, turbine rotation, and electricity production.",
       "notes": "Best simple animation for understanding the core process of PWR reactor. Of the nation's 94 operating reactors, roughly one-third are boiling water reactors, while the rest are pressurized water reactors. Original 2019 article URL relocated; current NEI fundamentals page used.",
       "license_note": "Verify reuse permission before publication."
+    },
+    {
+      "id": "nuclear_power_plant_map",
+      "type": "image",
+      "title": "U.S. nuclear power plants (as of February 2025)",
+      "asset_path": "public/assets/images/nuclear_power_plant_map.png",
+      "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=65104",
+      "recommended_use": "Show the current geographic footprint and capacity distribution of U.S. nuclear power plants in the opening scene.",
+      "notes": "EIA map labeling major plants and plant capacities across the United States.",
+      "license_note": "Public agency source; suitable for citation and reference."
+    },
+    {
+      "id": "nuclear_spent_fuel",
+      "type": "image",
+      "title": "Volume of U.S. Spent Nuclear Fuel",
+      "asset_path": "public/assets/images/nuclear_spent_fuel.png",
+      "source_url": "https://www.generationatomic.org/why-nuclear/",
+      "recommended_use": "Illustrate the small physical volume of U.S. spent nuclear fuel in the safety and waste section.",
+      "notes": "Generation Atomic graphic visualizing spent fuel volume as a football-field-sized footprint.",
+      "license_note": "Verify reuse permission before publication."
     }
   ],
   "supporting_sources": [

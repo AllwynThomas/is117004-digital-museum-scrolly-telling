@@ -71,7 +71,7 @@ export const exhibitData: ExhibitData = {
       lede: "What if one fuel pellet could replace a ton of coal?",
       bodyContent:
         "Nuclear energy is one of the most powerful and reliable sources of electricity on Earth. A single uranium fuel pellet — roughly the size of a gummy bear — contains as much energy as one ton of coal, 17,000 cubic feet of natural gas, or 149 gallons of oil. Today, more than 440 reactors operate across 32 countries, generating roughly 10% of the world's electricity around the clock, with near-zero carbon emissions.",
-      sourceIds: ["uranium_vs_fossil_fuels_diagram"],
+      sourceIds: ["uranium_vs_fossil_fuels_diagram", "nuclear_power_plant_map"],
       accentColor: "--color-accent-cyan",
       transitionText:
         "To understand why that pellet is so powerful, you need to see what happens inside a reactor.",
@@ -118,6 +118,7 @@ export const exhibitData: ExhibitData = {
       sourceIds: [
         "ourworldindata_chernobyl_fukushima",
         "nrc_spent_fuel_storage",
+        "nuclear_spent_fuel",
         "safest_cleanest_sources_chart",
       ],
       accentColor: "--color-accent-red",
@@ -405,6 +406,28 @@ export const exhibitData: ExhibitData = {
         "Explain reactor heat generation, steam production, turbine rotation, and electricity production.",
       notes:
         "Best simple animation for understanding the core process of PWR reactor.",
+      licenseNote: "Verify reuse permission before publication.",
+    },
+    {
+      id: "nuclear_power_plant_map",
+      type: "image",
+      title: "U.S. nuclear power plants (as of February 2025)",
+      sourceUrl: "https://www.eia.gov/todayinenergy/detail.php?id=65104",
+      recommendedUse:
+        "Show the current geographic footprint and capacity distribution of U.S. nuclear power plants in the opening scene.",
+      notes:
+        "EIA map labeling major plants and plant capacities across the United States.",
+      licenseNote: "Public agency source; suitable for citation and reference.",
+    },
+    {
+      id: "nuclear_spent_fuel",
+      type: "image",
+      title: "Volume of U.S. Spent Nuclear Fuel",
+      sourceUrl: "https://www.generationatomic.org/why-nuclear/",
+      recommendedUse:
+        "Illustrate the small physical volume of U.S. spent nuclear fuel in the safety and waste section.",
+      notes:
+        "Generation Atomic graphic visualizing spent fuel volume as a football-field-sized footprint.",
       licenseNote: "Verify reuse permission before publication.",
     },
     {

@@ -34,7 +34,12 @@ const SOURCE_CATEGORIES: SourceCategory[] = [
   },
   {
     label: "Media",
-    sourceIds: ["uranium_vs_fossil_fuels_diagram", "nuclearplant_animation"],
+    sourceIds: [
+      "uranium_vs_fossil_fuels_diagram",
+      "nuclear_power_plant_map",
+      "nuclear_spent_fuel",
+      "nuclearplant_animation",
+    ],
   },
 ];
 
@@ -50,6 +55,14 @@ const IMAGE_CREDITS = [
   {
     description: "How a nuclear reactor works animation",
     credit: "Nuclear Energy Institute (NEI)",
+  },
+  {
+    description: "U.S. nuclear power plant capacity map",
+    credit: "U.S. Energy Information Administration (EIA)",
+  },
+  {
+    description: "U.S. spent nuclear fuel volume graphic",
+    credit: "Generation Atomic",
   },
 ];
 
@@ -78,10 +91,15 @@ export function SiteFooter() {
           We showed you the evidence. Here is where to verify it yourself.
         </p>
 
-        <div className="grid grid-cols-1 gap-[var(--space-12)] md:grid-cols-2">
+        <div className="flex flex-col gap-[var(--space-12)]">
           {SOURCE_CATEGORIES.map((category) => (
-            <div key={category.label}>
+            <section
+              key={category.label}
+              aria-labelledby={`footer-category-${category.label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+              className="border-t border-[color:rgba(240,243,246,0.14)] pt-[var(--space-6)]"
+            >
               <h3
+                id={`footer-category-${category.label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                 className="font-bold text-[var(--color-text-on-dark)] mb-[var(--space-4)]"
                 style={{ fontSize: "var(--font-size-sub)" }}
               >
@@ -112,7 +130,7 @@ export function SiteFooter() {
                   );
                 })}
               </ul>
-            </div>
+            </section>
           ))}
         </div>
 
