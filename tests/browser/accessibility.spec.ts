@@ -48,7 +48,7 @@ test.describe("Accessibility — automated audit", () => {
     }
   });
 
-  test("HTML landmarks are present: main, nav, header, footer", async ({
+  test("HTML landmarks are present and the header remains usable", async ({
     page,
   }) => {
     await page.goto("/");
@@ -56,9 +56,9 @@ test.describe("Accessibility — automated audit", () => {
     await expect(page.locator("main")).toHaveCount(1);
     await expect(page.locator("header")).toHaveCount(1);
     await expect(page.locator("footer")).toHaveCount(1);
-
-    const navs = await page.locator("nav").count();
-    expect(navs).toBeGreaterThanOrEqual(1);
+    await expect(
+      page.getByRole("link", { name: "Nuclear Energy Museum" }),
+    ).toHaveCount(1);
   });
 
   test("every section has aria-labelledby pointing to its heading", async ({
@@ -67,7 +67,7 @@ test.describe("Accessibility — automated audit", () => {
     await page.goto("/");
 
     const sections = await page.locator("section[aria-labelledby]").all();
-    expect(sections.length).toBeGreaterThanOrEqual(7);
+    expect(sections.length).toBeGreaterThanOrEqual(4);
 
     for (const section of sections) {
       const labelledBy = await section.getAttribute("aria-labelledby");
@@ -75,6 +75,7 @@ test.describe("Accessibility — automated audit", () => {
 
       const heading = section.locator(`#${labelledBy}`);
       await expect(heading).toHaveCount(1);
+      await expect(section).toHaveAttribute("data-presentation-slide", "true");
     }
   });
 

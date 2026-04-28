@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -16,10 +17,16 @@ const NAV_SECTIONS = [
 ] as const;
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const [activeSection, setActiveSection] = useState<string>("hero");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isPresentationRoute = pathname === "/";
 
   useEffect(() => {
+    if (isPresentationRoute) {
+      return;
+    }
+
     const sectionElements = NAV_SECTIONS.map(({ id }) =>
       document.getElementById(id),
     ).filter(Boolean) as HTMLElement[];
@@ -45,7 +52,7 @@ export function SiteHeader() {
     sectionElements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [isPresentationRoute]);
 
   const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false);
@@ -92,82 +99,88 @@ export function SiteHeader() {
         </Link>
 
         {/* Desktop navigation */}
-        <nav aria-label="Exhibit sections" className="hidden md:flex gap-1">
-          {NAV_SECTIONS.map(({ id, label }) => (
-            <Link
-              key={id}
-              href={`#${id}`}
-              className={cn(
-                "no-underline rounded px-3 py-1.5 transition-colors",
-                "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
-                activeSection === id &&
-                  "text-[var(--color-accent-blue)] font-semibold",
-              )}
-              style={{ fontSize: "var(--font-size-caption)" }}
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Mobile hamburger button */}
-        <button
-          type="button"
-          className={cn(
-            "md:hidden flex items-center justify-center",
-            "w-10 h-10 rounded",
-            "text-[var(--color-text-primary)]",
-            "bg-transparent border-none cursor-pointer",
-          )}
-          onClick={toggleMobileMenu}
-          aria-expanded={isMobileMenuOpen}
-          aria-controls="mobile-nav-menu"
-          aria-label={
-            isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
-          }
-        >
-          {isMobileMenuOpen ? (
-            <X size={24} aria-hidden="true" />
-          ) : (
-            <Menu size={24} aria-hidden="true" />
-          )}
-        </button>
-      </div>
-
-      {/* Mobile navigation overlay */}
-      <nav
-        id="mobile-nav-menu"
-        aria-label="Exhibit sections"
-        className={cn(
-          "md:hidden",
-          "bg-[var(--color-bg-primary)] border-t border-[var(--color-surface-rule)]",
-          !isMobileMenuOpen && "hidden",
-        )}
-      >
-        <ul className="list-none m-0 p-0">
-          {NAV_SECTIONS.map(({ id, label }) => (
-            <li key={id}>
+        {!isPresentationRoute && (
+          <nav aria-label="Exhibit sections" className="hidden md:flex gap-1">
+            {NAV_SECTIONS.map(({ id, label }) => (
               <Link
+                key={id}
                 href={`#${id}`}
-                onClick={closeMobileMenu}
                 className={cn(
-                  "block no-underline",
+                  "no-underline rounded px-3 py-1.5 transition-colors",
                   "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
-                  "border-b border-[var(--color-surface-rule)]",
                   activeSection === id &&
                     "text-[var(--color-accent-blue)] font-semibold",
                 )}
-                style={{
-                  padding: "var(--space-4) var(--space-6)",
-                  fontSize: "var(--font-size-body)",
-                }}
+                style={{ fontSize: "var(--font-size-caption)" }}
               >
                 {label}
               </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+            ))}
+          </nav>
+        )}
+
+        {/* Mobile hamburger button */}
+        {!isPresentationRoute && (
+          <button
+            type="button"
+            className={cn(
+              "md:hidden flex items-center justify-center",
+              "w-10 h-10 rounded",
+              "text-[var(--color-text-primary)]",
+              "bg-transparent border-none cursor-pointer",
+            )}
+            onClick={toggleMobileMenu}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-nav-menu"
+            aria-label={
+              isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
+          >
+            {isMobileMenuOpen ? (
+              <X size={24} aria-hidden="true" />
+            ) : (
+              <Menu size={24} aria-hidden="true" />
+            )}
+          </button>
+        )}
+      </div>
+
+      {/* Mobile navigation overlay */}
+      {!isPresentationRoute && (
+        <nav
+          id="mobile-nav-menu"
+          aria-label="Exhibit sections"
+          className={cn(
+            "md:hidden",
+            "bg-[var(--color-bg-primary)] border-t border-[var(--color-surface-rule)]",
+            !isMobileMenuOpen && "hidden",
+          )}
+        >
+          <ul className="list-none m-0 p-0">
+            {NAV_SECTIONS.map(({ id, label }) => (
+              <li key={id}>
+                <Link
+                  href={`#${id}`}
+                  onClick={closeMobileMenu}
+                  className={cn(
+                    "block no-underline",
+                    "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
+                    "border-b border-[var(--color-surface-rule)]",
+                    activeSection === id &&
+                      "text-[var(--color-accent-blue)] font-semibold",
+                  )}
+                  style={{
+                    padding: "var(--space-4) var(--space-6)",
+                    fontSize: "var(--font-size-body)",
+                  }}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }

@@ -37,29 +37,44 @@ test.describe("Content integrity audit", () => {
     }
   });
 
-  test("source badges are present for each section", async ({ page }) => {
+  test("presentation scenes expose labeled variants for the exhibit route", async ({
+    page,
+  }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
 
-    // SourceBadge renders a span containing "Source: ..."
-    const sourceBadges = await page.locator('span:has-text("Source:")').all();
-    expect(
-      sourceBadges.length,
-      "Should have multiple SourceBadge elements throughout the exhibit",
-    ).toBeGreaterThanOrEqual(10);
+    const scenes = page.locator("section[data-presentation-slide='true']");
+    await expect(scenes).toHaveCount(4);
+
+    await expect(
+      page.locator("section[data-scene-kind='plain']").first(),
+    ).toBeVisible();
+    await expect(
+      page.locator("section[data-scene-kind='background']").first(),
+    ).toBeVisible();
+    await expect(
+      page.locator("section[data-scene-kind='split']").first(),
+    ).toBeVisible();
+    await expect(
+      page.locator("section[data-scene-kind='split-reverse']").first(),
+    ).toBeVisible();
   });
 
-  test("hero image renders at >= 600px width on desktop", async ({ page }) => {
+  test("background scene image renders at >= 600px width on desktop", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
     await page.waitForLoadState("networkidle");
 
-    const heroImage = page.locator("#hero img").first();
-    const box = await heroImage.boundingBox();
+    const backgroundImage = page
+      .locator("section[data-scene-kind='background'] img")
+      .first();
+    const box = await backgroundImage.boundingBox();
     expect(box).toBeTruthy();
     expect(
       box!.width,
-      "Hero image should be at least 600px wide on desktop",
+      "Background scene image should be at least 600px wide on desktop",
     ).toBeGreaterThanOrEqual(600);
   });
 });
@@ -107,42 +122,30 @@ test.describe("Responsive layout verification", () => {
     expect(scrollWidth).toBeLessThanOrEqual(viewportWidth);
   });
 
-  test("mobile — hamburger menu is visible", async ({ page }) => {
+  test("mobile — presentation route keeps a simple brand header", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
 
-    const hamburger = page.locator("button[aria-label*='navigation']");
-    await expect(hamburger).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Nuclear Energy Museum" }),
+    ).toBeVisible();
+    await expect(page.locator("button[aria-label*='navigation']")).toHaveCount(0);
   });
 
-  test("mobile — hamburger opens and closes", async ({ page }) => {
+  test("mobile — no long-form navigation overlay is rendered", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
 
-    const hamburger = page.locator("button[aria-label*='navigation']");
-    await hamburger.click();
-
-    const mobileNav = page.locator("#mobile-nav-menu");
-    await expect(mobileNav).toBeVisible();
-
-    // Close with Escape
-    await page.keyboard.press("Escape");
-    await expect(mobileNav).not.toBeVisible();
+    await expect(page.locator("#mobile-nav-menu")).toHaveCount(0);
   });
 
-  test("all 7 sections render on the page", async ({ page }) => {
+  test("all 4 presentation slides render on the page", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
 
-    const sectionIds = [
-      "hero",
-      "how-it-works",
-      "benefits",
-      "safety",
-      "fuel-cycle",
-      "future-demand",
-      "timeline",
-    ];
+    const sectionIds = ["scene-1", "scene-2", "scene-3", "scene-4"];
 
     for (const id of sectionIds) {
       await expect(
