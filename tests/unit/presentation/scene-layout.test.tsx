@@ -89,6 +89,49 @@ describe("SceneLayout", () => {
     );
   });
 
+  it("prefixes scene media URLs when a GitHub Pages base path is configured", () => {
+    const previousBasePath = process.env.NEXT_PUBLIC_BASE_PATH;
+    process.env.NEXT_PUBLIC_BASE_PATH = "/is117004-digital-museum-scrolly-telling";
+
+    try {
+      const { rerender } = render(
+        <SceneLayout
+          sceneKind="split"
+          heading="Diagram"
+          headingId="scene-media-title"
+          paragraphs={["Evidence remains visible."]}
+          mediaSrc="/assets/images/diagram.webp"
+        />,
+      );
+
+      expect(screen.getByRole("img", { name: "Diagram media" })).toHaveAttribute(
+        "src",
+        "/is117004-digital-museum-scrolly-telling/assets/images/diagram.webp",
+      );
+
+      rerender(
+        <SceneLayout
+          sceneKind="background"
+          heading="Backdrop"
+          headingId="scene-background-title"
+          paragraphs={["Backdrop copy."]}
+          backgroundSrc="/assets/images/hero.webp"
+        />,
+      );
+
+      expect(screen.getByRole("img", { name: "Backdrop background" })).toHaveAttribute(
+        "src",
+        "/is117004-digital-museum-scrolly-telling/assets/images/hero.webp",
+      );
+    } finally {
+      if (previousBasePath === undefined) {
+        delete process.env.NEXT_PUBLIC_BASE_PATH;
+      } else {
+        process.env.NEXT_PUBLIC_BASE_PATH = previousBasePath;
+      }
+    }
+  });
+
   it("renders timeline scenes with the museum timeline UI", () => {
     render(
       <SceneLayout

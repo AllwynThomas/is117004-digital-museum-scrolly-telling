@@ -40,6 +40,20 @@ interface SceneLayoutProps {
 const INLINE_MARKDOWN_PATTERN =
   /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)|\*\*([^*]+)\*\*/g;
 
+function prefixAssetPath(src: string): string {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH?.trim() ?? "";
+
+  if (!basePath || !src.startsWith("/") || src === basePath) {
+    return src;
+  }
+
+  if (src.startsWith(`${basePath}/`)) {
+    return src;
+  }
+
+  return `${basePath}${src}`;
+}
+
 function assertSceneLayoutKind(sceneKind: string): asserts sceneKind is SceneLayoutKind {
   if (
     sceneKind !== "plain" &&
@@ -292,7 +306,7 @@ function MediaFrame({
       )}
     >
       <Image
-        src={src}
+        src={prefixAssetPath(src)}
         alt={alt}
         unoptimized={true}
         width={1600}
@@ -353,7 +367,7 @@ export function SceneLayout({
     return (
       <div data-testid="scene-layout" data-scene-layout="background" className="relative min-h-screen overflow-hidden px-[var(--space-6)] py-[var(--space-16)]">
         <Image
-          src={backgroundSrc}
+          src={prefixAssetPath(backgroundSrc)}
           alt={`${heading} background`}
           unoptimized={true}
           fill={true}
