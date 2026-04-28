@@ -61,6 +61,48 @@ test.describe("Accessibility — automated audit", () => {
     ).toHaveCount(1);
   });
 
+  test("presentation semantics preserve landmarks, heading order, and readable content flow", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+
+    const main = page.locator("main[data-presentation-shell='true']");
+    await expect(main).toHaveAttribute("id", "main-content");
+
+    const headings = await page
+      .locator("main section[data-presentation-slide='true'] h2")
+      .allTextContents();
+
+    expect(headings).toEqual([
+      "The Power of Nuclear Energy",
+      "Energy Density",
+      "How a Reactor Makes Electricity",
+      "Why This Matters",
+    ]);
+
+    const childOrder = await page.locator("main#main-content > *").evaluateAll(
+      (elements) =>
+        elements.map((element) => ({
+          tag: element.tagName.toLowerCase(),
+          id: element.id,
+          label: element.getAttribute("aria-label"),
+        })),
+    );
+
+    expect(childOrder).toEqual([
+      { tag: "section", id: "scene-1", label: null },
+      { tag: "section", id: "scene-2", label: null },
+      { tag: "section", id: "scene-3", label: null },
+      { tag: "section", id: "scene-4", label: null },
+      { tag: "nav", id: "", label: "Presentation progress" },
+    ]);
+
+    await expect(
+      page.getByText("Scene 1 of 4: The Power of Nuclear Energy"),
+    ).toBeVisible();
+  });
+
   test("every section has aria-labelledby pointing to its heading", async ({
     page,
   }) => {

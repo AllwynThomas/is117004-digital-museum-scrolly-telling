@@ -49,6 +49,29 @@ function mockSceneRect(
 }
 
 describe("PresentationShell + PresentationProgress seam", () => {
+  it("preserves document-first reading order by rendering scene content before the fixed progress UI", () => {
+    render(
+      <PresentationShell
+        scenes={[
+          createScene("# Opening\nIntro copy."),
+          createScene("# Evidence\nMore copy."),
+        ]}
+      />,
+    );
+
+    const main = screen.getByRole("main");
+    const sections = screen.getAllByRole("region");
+    const progress = screen.getByRole("navigation", {
+      name: "Presentation progress",
+    });
+
+    expect(main.firstElementChild).toBe(sections[0]);
+    expect(main.lastElementChild).toBe(progress);
+    expect(
+      sections[sections.length - 1]?.compareDocumentPosition(progress),
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+  });
+
   it("updates the visible progress indicator from shared shell state and jumps through canonical scene anchors", async () => {
     const scrollIntoView = vi.fn();
 
@@ -83,6 +106,83 @@ describe("PresentationShell + PresentationProgress seam", () => {
 
     fireEvent.click(
       screen.getByRole("button", { name: "Go to scene 3: Why This Matters" }),
+    );
+
+    expect(scrollIntoView).toHaveBeenCalledWith({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  });
+
+  it("uses non-animated scene jumps when reduced motion is preferred", async () => {
+    const scrollIntoView = vi.fn();
+
+    setViewport(1440, 1000);
+    Object.defineProperty(window, "matchMedia", {
+      configurable: true,
+      writable: true,
+      value: vi.fn().mockReturnValue({
+        matches: true,
+        media: "(prefers-reduced-motion: reduce)",
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }),
+    });
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoView,
+    });
+
+    render(
+      <PresentationShell
+        scenes={[
+          createScene("# Opening\nIntro copy."),
+          createScene("# Evidence\nMore copy."),
+        ]}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Go to scene 2: Evidence" }),
+    );
+
+    expect(scrollIntoView).toHaveBeenCalledWith({
+      behavior: "auto",
+      block: "start",
+      inline: "nearest",
+    });
+  });
+
+  it("fails safely back to smooth scrolling when matchMedia is unavailable", async () => {
+    const scrollIntoView = vi.fn();
+
+    setViewport(1440, 1000);
+    Object.defineProperty(window, "matchMedia", {
+      configurable: true,
+      writable: true,
+      value: undefined,
+    });
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoView,
+    });
+
+    render(
+      <PresentationShell
+        scenes={[
+          createScene("# Opening\nIntro copy."),
+          createScene("# Evidence\nMore copy."),
+        ]}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Go to scene 2: Evidence" }),
     );
 
     expect(scrollIntoView).toHaveBeenCalledWith({

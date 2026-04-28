@@ -158,12 +158,6 @@ export function PresentationShell({ scenes }: PresentationShellProps) {
       data-presentation-shell="true"
       data-active-scene={activeSceneIndex + 1}
     >
-      <PresentationProgress
-        sceneLabels={sceneEntries.map(({ heading }) => heading)}
-        navigation={navigation}
-        onJumpToScene={jumpToScene}
-      />
-
       {sceneEntries.map(
         ({
           scene,
@@ -195,6 +189,12 @@ export function PresentationShell({ scenes }: PresentationShellProps) {
           </PresentationSlide>
         );
       })}
+
+      <PresentationProgress
+        sceneLabels={sceneEntries.map(({ heading }) => heading)}
+        navigation={navigation}
+        onJumpToScene={jumpToScene}
+      />
     </main>
   );
 }

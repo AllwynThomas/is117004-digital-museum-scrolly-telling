@@ -143,8 +143,8 @@ describe("getActiveSceneIndex", () => {
     expect(
       getActiveSceneIndex({
         sceneRects: [
-          { top: -1350, height: 1700, id: "scene-東京" },
-          { top: 350, height: 1700, id: "scene-São-Paulo" },
+          { top: -1350, height: 1700 },
+          { top: 350, height: 1700 },
         ],
         viewportHeight: 1000,
       }),

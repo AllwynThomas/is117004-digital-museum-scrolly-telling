@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type SceneLayoutKind = "plain" | "background" | "split" | "split-reverse";
 
 interface SceneLayoutProps {
@@ -70,9 +72,12 @@ function MediaFrame({
 }) {
   return (
     <div data-testid="scene-media" data-media-order={order}>
-      <img
+      <Image
         src={src}
         alt={alt}
+        unoptimized={true}
+        width={1600}
+        height={900}
         data-background-focal={focal ?? undefined}
         className="h-full w-full object-cover"
         style={focal ? { objectPosition: focal } : undefined}
@@ -109,9 +114,12 @@ export function SceneLayout({
 
     return (
       <div data-testid="scene-layout" data-scene-layout="background" className="relative min-h-screen overflow-hidden px-[var(--space-6)] py-[var(--space-16)]">
-        <img
+        <Image
           src={backgroundSrc}
           alt={`${heading} background`}
+          unoptimized={true}
+          fill={true}
+          sizes="100vw"
           data-background-focal={backgroundFocal ?? undefined}
           className="absolute inset-0 h-full w-full object-cover"
           style={backgroundFocal ? { objectPosition: backgroundFocal } : undefined}

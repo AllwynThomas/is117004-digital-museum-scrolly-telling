@@ -19,7 +19,7 @@ Tell me `implement phase 01`, `implement phase 02`, and so on, and I will:
 | 01 | [Scene source and parser](./01-scene-source-and-parser.md) | ✅ done |
 | 02 | [Presentation shell and slides](./02-presentation-shell-and-slides.md) | ✅ done |
 | 03 | [Presentation navigation and progress](./03-presentation-navigation-and-progress.md) | ✅ done |
-| 04 | [Accessibility and regression](./04-accessibility-and-regression.md) | ⏳ pending |
+| 04 | [Accessibility and regression](./04-accessibility-and-regression.md) | ✅ done |
 
 Current live tracker: [STATUS.md](./STATUS.md).
 

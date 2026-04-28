@@ -57,4 +57,25 @@ describe("PresentationProgress", () => {
       screen.getByRole("button", { name: "Go to scene 3: São Paulo" }),
     ).toHaveAttribute("aria-current", "step");
   });
+
+  it("renders keyboard-focusable scene controls in order with exactly one active step", () => {
+    render(
+      <PresentationProgress
+        sceneLabels={["Opening", "Evidence", "Why This Matters"]}
+        navigation={getNavigationState(0, 3)}
+        onJumpToScene={() => undefined}
+      />,
+    );
+
+    const buttons = screen.getAllByRole("button");
+
+    expect(buttons.map((button) => button.getAttribute("aria-label"))).toEqual([
+      "Go to scene 1: Opening",
+      "Go to scene 2: Evidence",
+      "Go to scene 3: Why This Matters",
+    ]);
+    expect(
+      buttons.filter((button) => button.getAttribute("aria-current") === "step"),
+    ).toHaveLength(1);
+  });
 });
