@@ -88,4 +88,64 @@ describe("SceneLayout", () => {
       "first",
     );
   });
+
+  it("renders timeline scenes with the museum timeline UI", () => {
+    render(
+      <SceneLayout
+        sceneKind="timeline"
+        heading="The Rise of Nuclear Power"
+        headingId="scene-8-title"
+        paragraphs={[
+          "Sources: [IAEA](https://www.iaea.org/newscenter/news/what-is-nuclear-energy-the-science-of-nuclear-power)",
+        ]}
+        closingStatement="Nuclear energy is a proven low-carbon power source."
+        eyebrow="History"
+        timelineEntries={[
+          {
+            year: "1942",
+            title: "Chicago Pile-1",
+            description: "The first controlled chain reaction proves fission is usable.",
+          },
+        ]}
+        variant="dark"
+      />,
+    );
+
+    expect(screen.getByRole("heading", { name: "The Rise of Nuclear Power" })).toBeVisible();
+    expect(screen.getByText("1942")).toBeVisible();
+    expect(screen.getByText("Chicago Pile-1")).toBeVisible();
+    expect(screen.getByText(/proven low-carbon power source/)).toBeVisible();
+    expect(screen.getByRole("link", { name: "IAEA" })).toHaveAttribute(
+      "href",
+      "https://www.iaea.org/newscenter/news/what-is-nuclear-energy-the-science-of-nuclear-power",
+    );
+  });
+
+  it("renders inline emphasis and external citation links inside scene copy", () => {
+    render(
+      <SceneLayout
+        sceneKind="plain"
+        heading="Evidence"
+        headingId="scene-evidence-title"
+        paragraphs={[
+          "**440+ reactors** support the case.",
+          "Sources: [IAEA](https://www.iaea.org/newscenter/news/what-is-nuclear-energy-the-science-of-nuclear-power)",
+        ]}
+      />,
+    );
+
+    expect(screen.getByText("440+ reactors", { selector: "strong" })).toBeVisible();
+    expect(screen.getByRole("link", { name: "IAEA" })).toHaveAttribute(
+      "href",
+      "https://www.iaea.org/newscenter/news/what-is-nuclear-energy-the-science-of-nuclear-power",
+    );
+    expect(screen.getByRole("link", { name: "IAEA" })).toHaveAttribute(
+      "target",
+      "_blank",
+    );
+    expect(screen.getByRole("link", { name: "IAEA" })).toHaveAttribute(
+      "rel",
+      expect.stringContaining("noopener"),
+    );
+  });
 });

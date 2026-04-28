@@ -44,38 +44,47 @@ test.describe("Content integrity audit", () => {
     await page.waitForLoadState("networkidle");
 
     const scenes = page.locator("section[data-presentation-slide='true']");
-    await expect(scenes).toHaveCount(4);
+    await expect(scenes).toHaveCount(8);
 
     await expect(
-      page.locator("section[data-scene-kind='plain']").first(),
-    ).toBeVisible();
-    await expect(
-      page.locator("section[data-scene-kind='background']").first(),
-    ).toBeVisible();
-    await expect(
-      page.locator("section[data-scene-kind='split']").first(),
-    ).toBeVisible();
+      page.locator("section[data-scene-kind='split']"),
+    ).toHaveCount(4);
     await expect(
       page.locator("section[data-scene-kind='split-reverse']").first(),
     ).toBeVisible();
+    await expect(
+      page.locator("section[data-scene-kind='timeline']").first(),
+    ).toBeVisible();
   });
 
-  test("background scene image renders at >= 600px width on desktop", async ({
+  test("energy density scene keeps image and copy readable on desktop", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
     await page.waitForLoadState("networkidle");
 
-    const backgroundImage = page
-      .locator("section[data-scene-kind='background'] img")
-      .first();
-    const box = await backgroundImage.boundingBox();
-    expect(box).toBeTruthy();
+    const energyScene = page.locator("section#scene-2");
+    const image = energyScene.locator("[data-testid='scene-media'] img");
+    const copy = energyScene.locator("[data-testid='scene-copy']");
+    const imageBox = await image.boundingBox();
+    const copyBox = await copy.boundingBox();
+
+    expect(imageBox).toBeTruthy();
+    expect(copyBox).toBeTruthy();
+    expect(imageBox!.width).toBeGreaterThanOrEqual(500);
+
+    const horizontalOverlap =
+      Math.min(imageBox!.x + imageBox!.width, copyBox!.x + copyBox!.width) -
+      Math.max(imageBox!.x, copyBox!.x);
+    const verticalOverlap =
+      Math.min(imageBox!.y + imageBox!.height, copyBox!.y + copyBox!.height) -
+      Math.max(imageBox!.y, copyBox!.y);
+
     expect(
-      box!.width,
-      "Background scene image should be at least 600px wide on desktop",
-    ).toBeGreaterThanOrEqual(600);
+      horizontalOverlap <= 0 || verticalOverlap <= 0,
+      "Energy density image and copy should not overlap",
+    ).toBe(true);
   });
 });
 
@@ -141,11 +150,20 @@ test.describe("Responsive layout verification", () => {
     await expect(page.locator("#mobile-nav-menu")).toHaveCount(0);
   });
 
-  test("all 4 presentation slides render on the page", async ({ page }) => {
+  test("all 8 presentation slides render on the page", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
 
-    const sectionIds = ["scene-1", "scene-2", "scene-3", "scene-4"];
+    const sectionIds = [
+      "scene-1",
+      "scene-2",
+      "scene-3",
+      "scene-4",
+      "scene-5",
+      "scene-6",
+      "scene-7",
+      "scene-8",
+    ];
 
     for (const id of sectionIds) {
       await expect(

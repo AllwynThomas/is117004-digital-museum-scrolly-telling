@@ -78,7 +78,11 @@ test.describe("Accessibility — automated audit", () => {
       "The Power of Nuclear Energy",
       "Energy Density",
       "How a Reactor Makes Electricity",
-      "Why This Matters",
+      "Why Nuclear Beats Fossil Fuels",
+      "Addressing Nuclear Safety and Waste",
+      "From Uranium to Electricity",
+      "Powering AI and the Future Grid",
+      "The Rise of Nuclear Power",
     ]);
 
     const childOrder = await page.locator("main#main-content > *").evaluateAll(
@@ -95,11 +99,15 @@ test.describe("Accessibility — automated audit", () => {
       { tag: "section", id: "scene-2", label: null },
       { tag: "section", id: "scene-3", label: null },
       { tag: "section", id: "scene-4", label: null },
+      { tag: "section", id: "scene-5", label: null },
+      { tag: "section", id: "scene-6", label: null },
+      { tag: "section", id: "scene-7", label: null },
+      { tag: "section", id: "scene-8", label: null },
       { tag: "nav", id: "", label: "Presentation progress" },
     ]);
 
     await expect(
-      page.getByText("Scene 1 of 4: The Power of Nuclear Energy"),
+      page.getByText("Scene 1 of 8: The Power of Nuclear Energy"),
     ).toBeVisible();
   });
 

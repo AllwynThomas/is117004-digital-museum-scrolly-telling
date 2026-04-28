@@ -21,11 +21,16 @@ describe("PresentationShell + PresentationSlide", () => {
     render(<PresentationShell scenes={scenes} />);
 
     const slides = screen.getAllByRole("region");
-    expect(slides).toHaveLength(4);
+    expect(slides).toHaveLength(8);
     expect(slides[0]).toHaveAttribute("data-presentation-slide", "true");
-    expect(slides[1]).toHaveAttribute("data-scene-kind", "background");
+    expect(slides[0]).toHaveAttribute("data-scene-kind", "split");
+    expect(slides[1]).toHaveAttribute("data-scene-kind", "split-reverse");
     expect(slides[2]).toHaveAttribute("data-scene-kind", "split");
     expect(slides[3]).toHaveAttribute("data-scene-kind", "split-reverse");
+    expect(slides[4]).toHaveAttribute("data-scene-kind", "split");
+    expect(slides[5]).toHaveAttribute("data-scene-kind", "split");
+    expect(slides[6]).toHaveAttribute("data-scene-kind", "split-reverse");
+    expect(slides[7]).toHaveAttribute("data-scene-kind", "timeline");
   });
 
   it("handles parser failure mode at the seam by rendering the shell empty state", () => {

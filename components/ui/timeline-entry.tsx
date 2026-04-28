@@ -38,9 +38,9 @@ export function TimelineEntry({
       {/* Year numeral */}
       <p
         className={cn(
-          "text-[length:var(--font-size-section)] font-extrabold leading-none md:text-right",
+          "w-fit text-[length:var(--font-size-section)] font-extrabold leading-none md:justify-self-end md:text-right",
           isDark
-            ? "text-[var(--color-accent-cyan)]"
+            ? "bg-[var(--color-bg-dark)] px-[var(--space-2)] py-[var(--space-1)] text-[var(--color-accent-cyan)]"
             : "text-[var(--color-accent-blue)]",
         )}
       >
@@ -48,7 +48,13 @@ export function TimelineEntry({
       </p>
 
       {/* Content */}
-      <div>
+      <div
+        className={cn(
+          isDark
+            ? "bg-[var(--color-bg-dark)] px-[var(--space-4)] py-[var(--space-3)]"
+            : undefined,
+        )}
+      >
         <h3
           className={cn(
             "text-[length:var(--font-size-sub)] font-bold leading-tight mb-[var(--space-2)]",

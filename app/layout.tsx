@@ -14,7 +14,10 @@ const inter = Inter({
   weight: ["400", "700", "800"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Nuclear Energy: A Digital Museum Exhibit",
   description:
     "Explore how nuclear reactors generate electricity, compare safety and emissions data across energy sources, and discover why nuclear power is critical to meeting rising demand from AI and the modern grid.",

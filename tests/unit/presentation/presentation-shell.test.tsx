@@ -80,7 +80,7 @@ describe("PresentationShell", () => {
 
     render(<PresentationShell scenes={scenes} />);
 
-    expect(screen.getAllByRole("region")).toHaveLength(4);
+    expect(screen.getAllByRole("region")).toHaveLength(8);
     expect(
       screen.getByRole("heading", { name: "The Power of Nuclear Energy" }),
     ).toBeVisible();
@@ -88,7 +88,23 @@ describe("PresentationShell", () => {
     expect(
       screen.getByRole("heading", { name: "How a Reactor Makes Electricity" }),
     ).toBeVisible();
-    expect(screen.getByRole("heading", { name: "Why This Matters" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Why Nuclear Beats Fossil Fuels" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Addressing Nuclear Safety and Waste" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "From Uranium to Electricity" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Powering AI and the Future Grid" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "The Rise of Nuclear Power" }),
+    ).toBeVisible();
+    expect(screen.getByText("Chicago Pile-1")).toBeVisible();
+    expect(screen.getByText("Nuclear Renaissance")).toBeVisible();
   });
 
   it("renders media metadata as scene attributes for later layout phases", () => {

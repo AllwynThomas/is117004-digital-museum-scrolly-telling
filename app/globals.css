@@ -117,6 +117,30 @@ h4 {
   background: rgba(9, 105, 218, 0.2);
 }
 
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  [data-scene-stage="true"] [data-scene-motion] {
+    transform: translate3d(
+        0,
+        calc((1 - var(--scene-progress)) * 12px),
+        0
+      )
+      scale(calc(0.992 + (var(--scene-progress) * 0.008)));
+    transform-origin: center top;
+    transition:
+      transform 220ms ease-out;
+    will-change: transform;
+  }
+
+  [data-scene-stage="true"] [data-scene-motion="media"] {
+    transform: translate3d(
+        0,
+        calc((1 - var(--scene-progress)) * 8px),
+        0
+      )
+      scale(calc(0.994 + (var(--scene-progress) * 0.01)));
+  }
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *,

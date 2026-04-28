@@ -95,4 +95,28 @@ describe("PresentationSlide", () => {
     expect(slide).toHaveAttribute("data-background-src", "/hero.webp");
     expect(screen.getByText(/東京 and São Paulo/)).toBeVisible();
   });
+
+  it("uses an extended default scroll span for timeline scenes", () => {
+    render(
+      <PresentationSlide index={7} sceneKind="timeline">
+        <p>Timeline content</p>
+      </PresentationSlide>,
+    );
+
+    expect(screen.getByRole("region").className).toContain("md:min-h-[220vh]");
+  });
+
+  it("allows scene-specific scroll span overrides for dense scenes", () => {
+    render(
+      <PresentationSlide
+        index={4}
+        sceneKind="split"
+        sceneMinHeightClassName="md:min-h-[190vh]"
+      >
+        <p>Dense content</p>
+      </PresentationSlide>,
+    );
+
+    expect(screen.getByRole("region").className).toContain("md:min-h-[190vh]");
+  });
 });

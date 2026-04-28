@@ -117,11 +117,13 @@ describe("parseSceneMarkdown", () => {
 
     const scenes = parseSceneMarkdown(markdown);
 
-    expect(scenes).toHaveLength(4);
-    expect(scenes[0]?.cleanContent).toContain("The Power of Nuclear Energy");
+    expect(scenes).toHaveLength(8);
+    expect(scenes[0]).toMatchObject({
+      cleanContent: expect.stringContaining("The Power of Nuclear Energy"),
+      splitSrc: "/assets/images/nuclear_power_plant_map.png",
+    });
     expect(scenes[1]).toMatchObject({
-      backgroundSrc: "/assets/images/uranium_vs_fossil_fuels_diagram.webp",
-      backgroundFocal: "50% 35%",
+      splitReverseSrc: "/assets/images/uranium_vs_fossil_fuels_diagram.webp",
     });
     expect(scenes[2]).toMatchObject({
       splitSrc: "/assets/images/nuclearplant.gif",
@@ -130,5 +132,15 @@ describe("parseSceneMarkdown", () => {
       splitReverseSrc:
         "/assets/images/safest_cleanest_sources_of_energy_chart.webp",
     });
+    expect(scenes[4]).toMatchObject({
+      splitSrc: "/assets/images/nuclear_spent_fuel.png",
+    });
+    expect(scenes[5]).toMatchObject({
+      splitSrc: "/assets/images/fuel_cycle.webp",
+    });
+    expect(scenes[6]).toMatchObject({
+      splitReverseSrc: "/assets/images/3_reactors_future_demand.webp",
+    });
+    expect(scenes[7]?.cleanContent).toContain("The Rise of Nuclear Power");
   });
 });

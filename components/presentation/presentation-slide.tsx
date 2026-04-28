@@ -11,7 +11,12 @@ import {
   type ReactNode,
 } from "react";
 
-type SceneKind = "plain" | "background" | "split" | "split-reverse";
+type SceneKind =
+  | "plain"
+  | "background"
+  | "split"
+  | "split-reverse"
+  | "timeline";
 
 interface PresentationSlideProps {
   index: number;
@@ -19,6 +24,7 @@ interface PresentationSlideProps {
   sceneKind: SceneKind;
   backgroundSrc?: string | null;
   headingId?: string;
+  sceneMinHeightClassName?: string;
   children: ReactNode;
 }
 
@@ -65,18 +71,28 @@ export function PresentationSlide({
   sceneKind,
   backgroundSrc = null,
   headingId,
+  sceneMinHeightClassName,
   children,
 }: PresentationSlideProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const frameRef = useRef<number | null>(null);
   const [progress, setProgress] = useState(0);
 
   const minHeightClass = useMemo(() => {
+    if (sceneMinHeightClassName) {
+      return sceneMinHeightClassName;
+    }
+
     if (sceneKind === "background") {
       return "md:min-h-[200vh]";
     }
 
+    if (sceneKind === "timeline") {
+      return "md:min-h-[220vh]";
+    }
+
     return "md:min-h-[170vh]";
-  }, [sceneKind]);
+  }, [sceneKind, sceneMinHeightClassName]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -86,32 +102,58 @@ export function PresentationSlide({
 
     const updateProgress = () => {
       if (window.innerWidth < 768) {
-        setProgress(0);
+        setProgress((currentProgress) =>
+          currentProgress === 0 ? currentProgress : 0,
+        );
         return;
       }
 
       const rect = section.getBoundingClientRect();
 
       try {
-        setProgress(
-          getSceneProgress({
-            sectionTop: rect.top,
-            sectionHeight: rect.height,
-            viewportHeight: window.innerHeight,
-          }),
+        const nextProgress = getSceneProgress({
+          sectionTop: rect.top,
+          sectionHeight: rect.height,
+          viewportHeight: window.innerHeight,
+        });
+
+        setProgress((currentProgress) =>
+          Math.abs(currentProgress - nextProgress) < 0.001
+            ? currentProgress
+            : nextProgress,
         );
       } catch {
-        setProgress(0);
+        setProgress((currentProgress) =>
+          currentProgress === 0 ? currentProgress : 0,
+        );
       }
     };
 
-    updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
+    const scheduleProgressUpdate = () => {
+      if (frameRef.current !== null) {
+        return;
+      }
+
+      frameRef.current = window.requestAnimationFrame(() => {
+        frameRef.current = null;
+        updateProgress();
+      });
+    };
+
+    scheduleProgressUpdate();
+    window.addEventListener("scroll", scheduleProgressUpdate, {
+      passive: true,
+    });
+    window.addEventListener("resize", scheduleProgressUpdate);
 
     return () => {
-      window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+        frameRef.current = null;
+      }
+
+      window.removeEventListener("scroll", scheduleProgressUpdate);
+      window.removeEventListener("resize", scheduleProgressUpdate);
     };
   }, []);
 
